@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Panel de visualización</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-black" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Resumen
+                            </a>
+                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                
+                                Estadisticas
+                                
+                            </a>
+        
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                
+                                Pages
+                                
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <!-- tarjeta -->
+                            <script>
+                            
+                            
+                                /* data.results.map((item) => item.gnss) */
+                                /* const obj = JSON.parse(data);
+                                const frecuencia = obj.metadata.node_name;
+                                console.log(frecuencia); */
+                               /*  const Sactivo=''
+                                const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjIzZjUwNDRiLTg4ZjYtNDFlZS04NzQ5LWVlOTY5Yzk4YTIzZCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTgzNzkzMTksImV4cCI6MTc1ODQyMjUxOSwiaWF0IjoxNzU4Mzc5MzE5LCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.vXu4D1WxlFzyaMhb1nayjNE4h7mB8Y_ema-nh65Ro9o'
+                                fetch('https://cosmosblastingtools.com/pulsaronline/api/v1/data/nodes/',{
+                                    method:'GET',
+                                    headers:{
+                                        'Authorization':token,
+                                        'Content-Type':'application/json'
+                                    }
+                                })
+                                    .then(res => res.json())
+                                    .then(data =>{
+                                        Sactivo=data,
+                                        console.log(data)
+                                    })
+                                    .catch(err => console.error(err)); */
+                                    //const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6Ijc3MjAwMGJlLTZkN2QtNGM1Mi05N2M2LWY2Yzc3YTA1MmE0NyIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg2NTIxMTIsImV4cCI6MTc1ODY5NTMxMiwiaWF0IjoxNzU4NjUyMTEyLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.RlwLO7AnLLDtyWk_6QIdqn4mJmUi8bKheG3uqRB9tck'
+                                
+                                    async function getData(){
+                                        try{
+                                            const res=await fetch('/dashboard/node',{ 
+                                                method:'GET',
+                                                headers:{
+                                                    //'Authorization':token,
+                                                    'Content-Type':'application/json'
+                                                }
+
+                                            });
+                                            const data=await res.json();
+                                            return data;
+
+
+                                        }catch(err){
+                                            console.log(err);
+                                        }
+                                    } 
+                                    
+                                    (async function(){
+
+                                        const data= await getData();
+                                        console.log('fuera del fetc: ',data)
+                                        const Tsensores=document.getElementById('card-text1');
+                                        const Sactivos=document.getElementById('card-text2');
+                                        const Sinactivos=document.getElementById('card-text3');
+                                        Tsensores.textContent=data.count;
+                                        let Activos=0;
+                                        let inactivos=0;
+                                        data.results.forEach(nodo=>{
+                                            if(nodo.status==="active"){
+                                                Activos++;
+                                            }else if(nodo.status=='inactive'){
+                                                inactivos++;
+                                            }
+                                        })
+                                        console.log(Activos);
+                                        console.log(inactivos);
+                                        Sactivos.textContent=Activos
+                                        Sinactivos.textContent=inactivos;
+
+                                    })()
+                                    
+                                 
+                         </script>
+                                <!--  -->
+                            <div class="d-flex justify-content-center" >
+                                
+                                <div class="card border-dark mb-3 me-4" style="max-width: 18rem;">
+                                      <div class="card-header"></div>
+                                      <div class="card-body text-dark " id="Sactivos">
+                                        <h5 class="card-title">Total Sensores</h5>
+                                        <p id="card-text1" ></p>
+                                      </div>
+                                </div>
+                                    <!--  -->
+                                    <div class="card border-dark mb-3 me-4" style="max-width: 18rem;">
+                                      <div class="card-header"></div>
+                                      <div class="card-body text-dark">
+                                        <h5 class="card-title">Activos</h5>
+                                        <p id="card-text2"></p>
+                                      </div>
+                                    </div>
+                                    <div class="card border-dark mb-3 me-4" style="max-width: 18rem;">
+                                          <div class="card-header"></div>
+                                          <div class="card-body text-dark">
+                                            <h5 class="card-title">Desconectados</h5>
+                                            <p id="card-text3"></p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    
+                           
+                                
+                        <div class="row">
+                            
+                            <!-- col-xl-6 -->
+                             <div class="grafica-espectro">
+                                <div class="card mb-4">
+                                     <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-wave-square me-1"></i>
+                                Estatus de nodos
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Nombre</th>
+                                      <th scope="col">Estado</th>
+                                      <th scope="col">Conectividad</th>
+                                      <th scope="col">Ultimo mensaje</th>
+                                      
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td>nodo 16</td>
+                                      <td></td>
+                                      <td>sfdf</td>
+                                      <td>sfdsdf</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2</th>
+                                      <td>nodo 17</td>
+                                      <td></td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">3</th>
+                                      <td colspan="1">nodo 18</td>
+                                      <td></td>
+                                      <td>Paco</td>
+                                      <td>@twitter</td>
+                                        
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              
+                            </div>
+                        </div>
+                                    <!--  <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div> -->
+                                    <!-- <div class="card-body">
+                                      <canvas id="myChart" width="100%" height="40"></canvas>
+                                    </div> -->
+                                   <!--  <div id="myChart" style="width:100%; height:400px;"></div> -->
+
+                                    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+                                     <script src="https://code.highcharts.com/highcharts.js"></script>
+                                    <script src="https://code.highcharts.com/modules/boost.js"></script>
+
+                                    
+                                        <script>
+                                          /* --------------------------*/
+                                          //const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjdlMDZmYWM5LTQ4YjAtNDMyMS04ZGU4LWMwYmI2ODM5MGMyNCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg0NjE1NTEsImV4cCI6MTc1ODUwNDc1MSwiaWF0IjoxNzU4NDYxNTUxLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.bx-rrku-abLy6AOblc2GxdH4ccaRHb444T5awImoheM'
+                                
+                                    async function getData1(){
+                                        try{
+                                            const res=await fetch('https://cosmosblastingtools.com/pulsaronline/api/v1/data/spectrum-event?triggerId=448&rangeSeconds=10&version=v2.0',{ 
+                                                method:'GET',
+                                                headers:{
+                                                    'Authorization':token,
+                                                    'Content-Type':'application/json'
+                                                }
+
+                                            });
+                                            const data=await res.json();
+                                            return data;
+
+
+                                        }catch(err){
+                                            console.log(err);
+                                        }
+                                    } 
+                                        /*----------------------------- */
+                                        
+                                
+                                    
+                                       async function grafico1(){
+                                        /* if(tipo==='X'){
+
+                                        }else if(tipo==='Y'){
+
+                                        }else if(tipo==='Z'){
+                                            
+                                        }else{
+                                            resturn.json('error al cargar datos')
+                                        } */
+                                         const data= await getData1();
+                                        const {frequencies,amplitudes} =data.spectra.X;
+                                        const {frequencies:f2,amplitudes:a2}=data.spectra.Y;
+                                        const {frequencies:f3,amplitudes:a3}=data.spectra.Z;
+                                        //const  frecuencia=data.spectra.X.frequencies;
+                                        const chartData=frequencies.map((f, i) => [f, amplitudes[i]]);
+                                        const chartDataE1=f2.map((f,i)=>[f,a2[i]]);
+                                        const chartDataE2=f3.map((f,i)=>[f,a3[i]]);
+                                        function maxpoint(input){
+                                            return input.reduce((a, b) => (a[1] > b[1] ? a : b));
+                                        }
+                                        const xmax=maxpoint(chartData)
+                                        const ymax=maxpoint(chartDataE1)
+                                        const zmax=maxpoint(chartDataE2)
+                                        
+                                        
+                                        //const maxPoint = chartData.reduce((a, b) => (a[1] > b[1] ? a : b));
+                                       
+                                          Highcharts.chart('myChart', {
+                                            chart: {
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'ANALISIS ESPECTRAL'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+                                                /* minorTickInterval:0.1,
+                                                min:0,
+                                                max:10 */
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+                                               
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'Espectro',
+                                                data: chartData,
+                                                type: 'line'
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[xmax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+
+                                    /* analisis espectral Y */
+                                    Highcharts.chart('espY', {
+                                            chart: {
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'ANALISIS ESPECTRAL'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+                                                /* minorTickInterval:0.1,
+                                                min:0,
+                                                max:10 */
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+                                               
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'Espectro 1',
+                                                data:chartDataE1,
+                                                type:'line',
+
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[ymax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+                                    /* analisis espectral Z */
+                                    Highcharts.chart('espZ', {
+                                            chart: {
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'ANALISIS ESPECTRAL'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+                                                /* minorTickInterval:0.1,
+                                                min:0,
+                                                max:10 */
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+                                               
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'Espectro 2',
+                                                data:chartDataE2,
+                                                type:'line'
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[zmax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+                                
+                                       }
+                                       grafico1()
+                                        </script>
+                                </div>
+                            </div> 
+                            
+                            
+                            <!-- <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-wave-square me-1"></i>
+                                Eventos sismicos recientes
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">First</th>
+                                      <th scope="col">Last</th>
+                                      <th scope="col">Handle</th>
+                                      <th scope="col">ver</th>
+                                      <th scope="col">opciones</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td>Mark</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                        <td>
+                                            <!-- <button type="button" class="btn btn-link" data-bs-dismiss="modal">ver</button> -->
+                                           <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModalLong">
+                                            Launch demo modal
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-link">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2</th>
+                                      <td>Jacob</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">3</th>
+                                      <td colspan="1">Larry the Bird</td>
+                                      <td>Paco</td>
+                                      <td>@twitter</td>
+                                        
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        async function getData2(){
+                            try{
+                                const res=await fetch('https://cosmosblastingtools.com/pulsaronline/api/v1/data/geofonos-event?triggerId=448&rangeSeconds=10&version=v2.0',{
+                                    method:'GET',
+                                    headers:{
+                                        'Authorization':token,
+                                        'Content-Type':'application/json'
+                                    }
+
+                                });
+                                const data=await res.json();
+                                return data;
+                            }catch(err){
+                                cosole.log(err);
+                            }
+                        
+                        }
+                        async function grafico2(){
+                              Highcharts.setOptions({
+                                time:{
+                                    useUTC:false
+                                }
+                            })  
+                            const data=await getData2();
+                            const { RADIAL,TRANSVERSAL,["VECTOR SUMA"]:VECTOR_SUMA,VERTICAL}=data.signals;
+                                const chartdata1=RADIAL.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                               Number(p.value)]);
+
+                               const chartdata2=TRANSVERSAL.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                               Number(p.value)]);
+
+                               const chartdata3=VECTOR_SUMA.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                               Number(p.value)]);
+
+                               const chartdata4=VERTICAL.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                               Number(p.value)]);
+                            console.log("datos convertidos: ",chartdata1.slice(0,10));
+                            Highcharts.chart('myChart1', {
+                                            chart: {
+                                                type:'line',
+                                                zoomType:'x'
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'Line Chart with Boost Module'
+                                            },
+                                            xAxis: {
+                                                type: 'datetime'
+                                            },
+                                            yAxis:{
+                                                title:{text:'desplazamiento'}
+                                            },
+                                            tooltip:{
+                                                 formatter:function(){
+                                                    return `<b>Tiempo:</b> ${Highcharts.dateFormat('%Y-%m-%d %H:%M:%S',this.x)}  <br/>
+                                                    <b>valor:</b> ${this.y}`;  
+                                                } 
+                                            },
+                                            series: [{
+                                                name:'RADIAL',
+                                                data: chartdata1,
+                                                
+                                            },{
+                                                name:'TRANSVERSAL',
+                                                data:chartdata2,
+                                            },{
+                                                name:'VECTOR SUMA',
+                                                data:chartdata3,
+                                            },{
+                                                name:'VERTICAL',
+                                                data:chartdata4,
+                                            }]
+                                        });
+                                        const fecha=new Date();
+                                        console.log(fecha);
+                        }
+                        
+                        grafico2();
+                    </script>
+                   <!--  ---------------------------------------------Modal para ver detalles de espectro------------------------------------------- -->
+                 <!-- Modal -->
+                     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                              <div id="myChart1" style="width:100%; height:500px;"></div> 
+                               <div id="myChart" style="width:100%; height:400px;"></div>
+                               <div id="espY" style="width:100%; height:400px;"></div>
+                               <div id="espZ" style="width:100%; height:400px;"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                <!--  ---------------------------------------------Modal para ver detalles de espectro------------------------------------------- -->
+                    
+            </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
+</html>
