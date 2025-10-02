@@ -2,7 +2,7 @@ export  async function obtenerToken() {
  const username=process.env.username
 
      const password1=process.env.password
-    const password=password1.replace(/$/g, '$$');
+    const password=password1.replace(/\$/g, '$$');
  try {
     const respuesta = await fetch(
      
