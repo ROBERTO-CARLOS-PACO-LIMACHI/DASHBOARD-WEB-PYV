@@ -18,7 +18,7 @@ export  async function obtenerToken() {
         }),
       },
     );
-   console.log("datos del respuesta usuariocontraseña:", process.env.username," ",process.env.password)
+   console.log("datos del respuesta usuariocontraseña:", username," ",password)
 console.log("respuesta ",respuesta)
     if (!respuesta.ok) {
       
