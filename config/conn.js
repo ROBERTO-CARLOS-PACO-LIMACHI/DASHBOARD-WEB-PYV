@@ -13,7 +13,7 @@ export  async function obtenerToken() {
         }),
       },
     );
-   console.log("datos del respuesta:", respuesta)
+   console.log("datos del respuesta usuariocontraseña:", proccess.env.username," ",process.env.password)
     if (!respuesta.ok) {
       
       throw new Error("Error en la solicitud");
