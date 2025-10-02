@@ -13,7 +13,7 @@ export  async function obtenerToken() {
         }),
       },
     );
-   console.log("datos del respuesta:",await respuesta.jdon())
+   console.log("datos del respuesta:", respuesta))
     if (!respuesta.ok) {
       
       throw new Error("Error en la solicitud");
