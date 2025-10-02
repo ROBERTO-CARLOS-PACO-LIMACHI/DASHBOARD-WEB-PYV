@@ -1,10 +1,11 @@
 export  async function obtenerToken() {
-  try {
-    const respuesta = await fetch(
-     const username=process.env.username
+ const username=process.env.username
 
      const password1=process.env.password
     const password=password1.replace(/$/g, '$$');
+ try {
+    const respuesta = await fetch(
+     
  "https://cosmosblastingtools.com/pulsaronline/api/v1/users/login",
       {
         method: "POST",
