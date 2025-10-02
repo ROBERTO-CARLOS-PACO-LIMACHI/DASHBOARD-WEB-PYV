@@ -9,7 +9,8 @@ export  async function obtenerToken() {
         },
         body: JSON.stringify({
           username: process.env.username,
-          password: process.env.password,
+          password: process.env.password.replace(/$/g, '$$');
+,
         }),
       },
     );
