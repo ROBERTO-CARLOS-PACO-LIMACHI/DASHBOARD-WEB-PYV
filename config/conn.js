@@ -14,6 +14,7 @@ export  async function obtenerToken() {
       },
     );
    console.log("datos del respuesta usuariocontraseña:", process.env.username," ",process.env.password)
+console.log("respuesta ",respuesta)
     if (!respuesta.ok) {
       
       throw new Error("Error en la solicitud");
