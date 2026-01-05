@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import { UserRepository } from "../models/user-repository.js";
 export class UserController {
   static async login(req, res) {
-    print("req body: ", req.body)
+    console.log("req body: ", req.body)
     const { username, password } = req.body;
     try {
       const user = await UserRepository.login({ username, password });
