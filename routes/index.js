@@ -48,3 +48,4 @@ homerouter.get("/auditoria", AuditController.getAuditoria);
 homerouter.get("/triggers", NodeController.getTriggers);
 homerouter.delete("/deleteEvent/:id", auditoria, NodeController.EliminarEvento);
 homerouter.get("/event/last", NodeController.getLast);
+homerouter.post("/addEvento", NodeController.addEvento);
