@@ -100,4 +100,8 @@ export class NodeController {
         const result = await NodeModel.getLast();
         return res.json(result);
     }
+    static async addEvento(req, res) {
+        const data = req.body;
+        console.log("data prueba CONTROLLER : ", data);
+    }
 }
