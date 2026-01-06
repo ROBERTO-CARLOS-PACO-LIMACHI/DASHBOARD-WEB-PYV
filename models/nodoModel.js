@@ -278,6 +278,7 @@ export class NodeModel {
       vector_suma: res.vector_suma,
     };
   }
+  
   static async EliminarEvento(id) {
     console.log("id del evento a eliminar: ", typeof id);
     const res = await eventos.deleteOne({ trigger: Number(id) });
@@ -296,5 +297,9 @@ export class NodeModel {
       console.log("no hay eventos", res);
     }
     return res;
+  }
+  static async addEvento(req,res){
+    const data=req.body;
+    console.log("data prueba : ", data);
   }
 }
