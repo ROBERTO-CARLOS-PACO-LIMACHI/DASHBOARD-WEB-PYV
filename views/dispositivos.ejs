@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dispositivos</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  
+  <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <%- include('_header.ejs') %>
+
+  <div id="layoutSidenav_content">
+    <main class="container my-4">
+
+      <section id="dispositivos" class="mb-5">
+        <h1 class="mb-4 text-center">DISPOSITIVOS</h1>
+        <div class="row justify-content-center">
+
+          <% const nodos = [16, 17, 18]; %>
+          <% nodos.forEach(nodo => { %>
+            <div class="col-12 col-md-3 mb-4 text-center">
+              <div class="card border-dark mb-3 me-4" style="max-width: 18rem; border-radius:10px;">
+                <div class="card-header">NODO <%= nodo %></div>
+                <div class="card-body">
+                  <button id="iniciarNodo<%=nodo%>" type="button" class="btn btn-success btn-sm m-1" aria-label="Iniciar nodo <%= nodo %>">Iniciar</button>
+                  <button  id="detenerNodo<%=nodo%>" type="button" class="btn btn-danger btn-sm m-1" aria-label="Detener nodo <%= nodo %>">Detener</button>
+                  
+                  <div class="mt-2">
+                    <label for="estado<%=nodo%>">Estado:</label>
+                    <div id="estado<%=nodo%>">Detenido</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+
+        </div>
+      </section>
+
+           <script>
+             document.addEventListener("click", async  (e) => {
+               if (e.target.id.startsWith("iniciarNodo")) {
+                 const numeroNodo = e.target.id.replace("iniciarNodo", "");
+                 console.log("Iniciar nodo:", numeroNodo);
+                 iniciarNodoFrontend(numeroNodo)
+               }
+               if (e.target.id.startsWith("detenerNodo")) {
+                  const numeroNodo = e.target.id.replace("detenerNodo", "");
+                  console.log("Iniciar nodo:", numeroNodo);
+                  detenerNodo(numeroNodo)
+                }
+              
+             });
+             async function detenerNodo(uuid){
+               const res = await fetch(`/dashboard/ad7606/stop/${uuid}`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+
+                });
+             }
+
+             async function iniciarNodoFrontend(uuid) {
+               const res = await fetch(`/dashboard/ad7606/start/${uuid}`, {
+                 method: "POST",
+                 headers: { "Content-Type": "application/json" },
+                 
+               });
+
+               const data = await res.json();
+               console.log(data);
+             }
+             
+           </script>
+            
+
+      <section id="mapaNodos" >
+        <h1 class="mb-3 text-center">Mapa de nodos</h1>
+        <div id="map" style="
+          width: 100%;
+          
+          height: 500px;
+          border-radius: 10px;
+          border: 2px solid #ccc;
+          margin: 10px auto;">
+        </div>
+      </section>
+
+            <section id="graficaconectividad" class="mb-5">
+              <h1 class="mb-3 text-center"></h1>
+              <!-- Aquí podrías agregar tu gráfica -->
+            </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  
+            
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <script>
+    // Inicializar mapa
+    const map = L.map('map').setView([-21.1046631, -67.2062943], 14);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Coordenadas de los nodos
+    const markers = [
+      [-21.1046631, -67.2062943],
+      [-21.1066413, -67.2107155],
+      [-21.1038356, -67.2088251]
+    ];
+    
+    console.log('markers: ',markers)
+    markers.forEach(coords => L.marker(coords).addTo(map));
+    console.log('markers: ',markers)
+    
+  </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <%- include('_footer.ejs') %>
+</body>
+</html>

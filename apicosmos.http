@@ -1,0 +1,24 @@
+###endpoint para obtener datos generales de los nodos 
+GET https://cosmosblastingtools.com/pulsaronline/api/v1/data/nodes/
+Content-Type:application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjdlMDZmYWM5LTQ4YjAtNDMyMS04ZGU4LWMwYmI2ODM5MGMyNCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg0NjE1NTEsImV4cCI6MTc1ODUwNDc1MSwiaWF0IjoxNzU4NDYxNTUxLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.bx-rrku-abLy6AOblc2GxdH4ccaRHb444T5awImoheM
+
+###Endpoint para obtener datos del estandar usado para monitoreo de vibraciones
+GET https://cosmosblastingtools.com/pulsaronline/api/v1/compliance/standards
+
+###Endpoint para obtener datos de eventos  de espectro segun trigger
+
+GET https://cosmosblastingtools.com/pulsaronline/api/v1/data/spectrum-event?triggerId=448&rangeSeconds=10&version=v2.0
+
+###Endpoint para obtener datos de geofonos por evento
+
+GET https://cosmosblastingtools.com/pulsaronline/api/v1/data/geofonos-event?triggerId=448&rangeSeconds=10&version=v2.0
+
+###Enpo
+
+GET https://cosmosblastingtools.com/pulsaronline/api/v1/nodes/81924341-44c6-423a-a6fd-f671055b3bf3/triaxial
+Content-Type:application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjdlMDZmYWM5LTQ4YjAtNDMyMS04ZGU4LWMwYmI2ODM5MGMyNCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg0NjE1NTEsImV4cCI6MTc1ODUwNDc1MSwiaWF0IjoxNzU4NDYxNTUxLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.bx-rrku-abLy6AOblc2GxdH4ccaRHb444T5awImoheM
+
+
+https://cosmosblastingtools.com/pulsaronline/api/v1/nodes/signal/chart-data?time_range=yesterday&chart_type=modem&group_by=hour&timezone=America%2FLima&page=1&limit=100
