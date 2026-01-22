@@ -1,0 +1,1066 @@
+            <!DOCTYPE html>
+            <html lang="es">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+                    <meta name="description" content="" />
+                    <meta name="author" content="" />
+                    <title>Admin</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+                    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+                    <link href="css/styles.css" rel="stylesheet" />
+                    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                </head>
+                <body class="sb-nav-fixed">
+                    <%- include('_header.ejs') %>
+                    
+                   
+                <!-- aqui va el menu desplegable de ususarios, dispositivos y home -->>
+                        <div id="layoutSidenav_content">
+                            <main>
+                                <div class="container-fluid px-4">
+                                    <h1 class="mt-4">Dashboard de monitorero sismico</h1>
+                                    <ol class="breadcrumb mb-4">
+                                        <li class="breadcrumb-item active">Dashboard</li>
+                                    </ol>
+                                    <div class="row">
+                                        <!-- tarjeta -->
+                                        <script>
+                                        
+                                        const rol=localStorage.getItem("role")
+                                            if(rol==="Admin"){
+                                                document.getElementById("nav-users").style.display="inline";
+                                            }else{
+                                                document.getElementById("nav-users").style.display="none";
+                                            }
+
+                                            /* data.results.map((item) => item.gnss) */
+                                            /* const obj = JSON.parse(data);
+                                            const frecuencia = obj.metadata.node_name;
+                                            console.log(frecuencia); */
+                                           /*  const Sactivo=''
+                                            const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjIzZjUwNDRiLTg4ZjYtNDFlZS04NzQ5LWVlOTY5Yzk4YTIzZCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTgzNzkzMTksImV4cCI6MTc1ODQyMjUxOSwiaWF0IjoxNzU4Mzc5MzE5LCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.vXu4D1WxlFzyaMhb1nayjNE4h7mB8Y_ema-nh65Ro9o'
+                                            fetch('https://cosmosblastingtools.com/pulsaronline/api/v1/data/nodes/',{
+                                                method:'GET',
+                                                headers:{
+                                                    'Authorization':token,
+                                                    'Content-Type':'application/json'
+                                                }
+                                            })
+                                                .then(res => res.json())
+                                                .then(data =>{
+                                                    Sactivo=data,
+                                                    console.log(data)
+                                                })
+                                                .catch(err => console.error(err)); */
+                                                //const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6Ijc3MjAwMGJlLTZkN2QtNGM1Mi05N2M2LWY2Yzc3YTA1MmE0NyIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg2NTIxMTIsImV4cCI6MTc1ODY5NTMxMiwiaWF0IjoxNzU4NjUyMTEyLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.RlwLO7AnLLDtyWk_6QIdqn4mJmUi8bKheG3uqRB9tck'
+
+                                                async function getData(){
+                                                    try{
+                                                        const res=await fetch('/dashboard/node',{ 
+                                                            method:'GET',
+                                                            headers:{
+                                                                //'Authorization':token,
+                                                                'Content-Type':'application/json'
+                                                            }
+
+                                                        });
+                                                        const data=await res.json();
+                                                        return data;
+
+
+                                                    }catch(err){
+                                                        console.log(err);
+                                                    }
+                                                } 
+
+                                                (async function(){
+
+                                                    const data= await getData();
+                                                    console.log('fuera del fetc: ',data)
+                                                    const status16=document.getElementById('statusw16')
+                                                    const quality16=document.getElementById('quality16')
+                                                    const timestamp16= document.getElementById('timestamp16')
+                                                    let activo = data?.results?.[0]?.message_details?.ad7606?.sampling_active;
+
+                                                    status16.textContent = activo ? "Activo" : "Desactivado";
+                                                    quality16.textContent=data.results[0].connectivity.modem.signal_quality;
+                                                    timestamp16.textContent=new  Date(data.results[0].connectivity.network.last_ping).toLocaleString();
+                                                    //17
+                                                    const status17=document.getElementById('statusw17')
+                                                    const quality17=document.getElementById('quality17')
+                                                    const timestamp17= document.getElementById('timestamp17')
+                                                     activo = data?.results?.[1]?.message_details?.ad7606?.sampling_active;
+
+                                                    status17.textContent = activo ? "Activo" : "Desactivado";
+                                                    //quality17.textContent= data.results[1].connectivity.modem.signal_quality;
+                                                    timestamp17.textContent=new   Date(data.results[1].connectivity.network.last_ping).toLocaleString();//18
+
+                                                    const status18=document.getElementById('statusw18')
+                                                    const quality18=document.getElementById('quality18')
+                                                    const timestamp18= document.getElementById('timestamp18')
+                                                     activo = data?.results?.[2]?.message_details?.ad7606?.sampling_active;
+
+                                                    status18.textContent = activo ? "Activo" : "Desactivado";
+                                                    //quality17.textContent= data.results[1].connectivity.modem.signal_quality;
+                                                    timestamp18.textContent=new   Date(data.results[2].connectivity.network.last_ping).toLocaleString();
+                                                    
+                                                    
+                                                    const Tsensores=document.getElementById('card-text1');
+                                                    const Sactivos=document.getElementById('card-text2');
+                                                    const Sinactivos=document.getElementById('card-text3');
+                                                    Tsensores.textContent=data.count;
+                                                    let Activos=0;
+                                                    let inactivos=0;
+                                                    data.results.forEach(nodo=>{
+                                                        if(nodo.status==="active"){
+                                                            Activos++;
+                                                        }else if(nodo.status==="inactive"){
+                                                            inactivos++;
+                                                        }
+                                                    })
+                                                    console.log(Activos);
+                                                    console.log(inactivos);
+                                                    Sactivos.textContent=Activos
+                                                    Sinactivos.textContent=inactivos;
+
+                                                })()
+
+
+                                     </script>
+                                            <!--  -->
+                                        <div class=" row d-flex  justify-content-center" >
+
+                                            <div class="col-12 col-md-3 mb-4 text-center">
+                                                <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+                                                   
+                                                      <!-- <div class="card-header">hola</div> -->
+                                                    <div class=" card-body position-relative text-center">
+                                                        <span id="card-text1" class="fs-3 fw-bold"></span>
+                                                        <i class="bi bi-cpu fs-1 position-absolute" style="left:10px; top:50%; transform:translateY(-50%);"></i>
+                                                    </div>
+                                                    <h6 class="card-title">Total Sensores</h6>
+                                                </div>
+                                            </div>
+                                                <!--  -->
+                                            <div class="col-12 col-md-3 mb-4 text-center">
+                                                <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+
+                                                      <!-- <div class="card-header">hola</div> -->
+                                                    <div class=" card-body position-relative text-center">
+                                                        <span id="card-text2" class="fs-3 fw-bold"></span>
+                                                        
+                                                    </div>
+                                                    <h6 class="card-title">Activos</h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-3 mb-4 text-center">
+                                                <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+
+                                                      <!-- <div class="card-header">hola</div> -->
+                                                    <div class=" card-body position-relative text-center">
+                                                        <span id="card-text3" class="fs-3 fw-bold"></span>
+                                                        
+                                                    </div>
+                                                    <h6 class="card-title">Desconectados</h6>
+                                                </div>
+                                            </div>
+                                               
+                                            <div class="col-12 col-md-3 mb-4 text-center">
+                                                <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+
+                                                      <!-- <div class="card-header">hola</div> -->
+                                                    <div class=" card-body position-relative text-center">
+                                                        <span id="card-text4" class="fs-3 fw-bold">1</span>
+                                                        <i class="bi bi-shield-check fs-1 position-absolute" style="left:10px; top:50%; transform:translateY(-50%);"></i>
+                                                    </div>
+                                                    <h6 class="card-title">VPN activos</h6>
+                                                </div>
+                                            </div>
+                                                <div class="col-12 col-md-3 mb-4 text-center">
+                                                    <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+
+                                                          <!-- <div class="card-header">hola</div> -->
+                                                        <h6 class="card-title">Ultimo evento</h6>
+                                                        <div class=" card-body position-relative text-center">
+                                                            <span id="ultimo-evento" class="fs-3 fw-bold"></span><br>
+                                                            fecha:<span id="ultimo-fecha"></span><br>
+                                                            <!-- nivel maximo detectado:<span id="ultimo-maximo"></span> -->
+                                                            
+                                                        </div>
+                                                        
+                                                        <script>
+                                                            const uevento=document.getElementById('ultimo-evento');
+                                                            const ufecha=document.getElementById('ultimo-fecha');
+                                                            const umaximo=document.getElementById('ultimo-maximo');
+                                                            const obtenerultimoevento= async()=> {
+                                                                    const res = await fetch('/dashboard/event/last');
+                                                                    const last= await res.json();
+                                                                    console.log('last: ',last)
+                                                                    uevento.textContent=last.trigger;
+                                                                    ufecha.textContent=new Date(last.timestamp).toLocaleString();
+                                                                    //umaximo.textContent=
+                                                                }
+                                                            obtenerultimoevento();
+                                                        </script>
+                                                            
+                                                        
+                                                    </div>
+                                                </div>
+                                            <div class="col-12 col-md-3 mb-4 text-center">
+                                                <div class="card  mb-3 me-4 shadow-sm" style="max-width: 18rem;border-radius:50px">
+
+                                                      <!-- <div class="card-header">hola</div> -->
+                                                    <div class=" card-body position-relative text-center">
+                                                        <span id="evento-hoy" class="fs-3 fw-bold"> 1 </span>
+                                                    
+                                                    </div>
+                                                    <h6 class="card-title">eventos registrados hoy</h6>
+                                                </div>
+                                            </div>
+                                               </div>
+
+
+        
+                                    <div class="row">
+
+                                        <!-- col-xl-6 -->
+                                         
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6 mb-4 " >
+
+                                                             <div class="card mb-4 ">
+
+                                                        <div class="card-header ">
+                                                            <i class="fas fa-wave-square me-1"></i>
+                                                            Estatus de nodos
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                            <table id="tablaestado" class="table table-hover">
+                                                              <thead>
+                                                                <tr>
+                                                                  <th scope="col">#</th>
+                                                                  <th scope="col">Nombre</th>
+                                                                  <th scope="col">Estado</th>
+                                                                  <th scope="col">Conectividad</th>
+                                                                  <th scope="col">Ultimo mensaje</th>
+
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                               <tr id="nodo16">
+                                                                <td>1</td>
+
+                                                                   <td id="name16">NODO 16</td>
+                                                                   <td id="statusw16"> </td>
+                                                                   <td id="quality16"></td>
+                                                                   <td id="timestamp16"></td>
+                                                               </tr>
+                                                                  <tr id="nodo17">
+                                                                      <td>2</td>
+
+                                                                         <td id="name17">NODO 17</td>
+                                                                         <td id="statusw17"> </td>
+                                                                         <td id="quality17"></td>
+                                                                         <td id="timestamp17"></td>
+                                                                     </tr>
+                                                                  <tr id="nodo18">
+                                                                      <td>3</td>
+
+                                                                         <td id="name18">NODO 18</td>
+                                                                         <td id="statusw18"></td>
+                                                                         <td id="quality18"></td>
+                                                                         <td id="timestamp18"></td>
+                                                                     </tr>
+                                                              </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                                     </div>
+
+
+                                                </div>
+                                                  
+                                            </div>
+                                                <div class="col-12 col-lg-6 mb-4">
+                                                    <div id="grafica-diaria" style="height: 400px;"></div>
+                                                </div>
+                                                <script src="https://code.highcharts.com/highcharts.js"></script>
+                                                <script src="https://code.highcharts.com/modules/boost.js"></script>
+                                                <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                                                <script>
+                                                        
+                                                             function soloFechaBonita(d) {
+                                                                 return d.toLocaleDateString("es-BO", {
+                                                                     year: "numeric",
+                                                                     month: "2-digit",
+                                                                     day: "2-digit"
+
+
+                                                                 })
+                                                                 .replace(/\//g, "-");
+                                                             }
+                                                              const eventodiario=async ()=>{
+                                                                  const actualDate = new Date();  
+                                                                    const eventohoy=document.getElementById('evento-hoy')                                                                                         
+                                                                  // Fecha hace 7 días
+                                                                  const semana = new Date(actualDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+                                                                  // Mostrar en formato inglés (yyyy-mm-dd)
+                                                                  const actual = actualDate.toISOString().split("T")[0];
+                                                                  console.log('actual: ',actual)
+                                                                  const semanaStr = semana.toISOString().split("T")[0];
+
+
+                                                                  const res=await fetch(`/dashboard/triggers?start_time=${semanaStr}&end_time=${actual}`);
+                                                                  const eventos=await res.json();
+                                                                  console.log('eventos diarios: ',eventos);
+                                                                  const fechas = eventos.map(ev => ev.timestamp.split("T")[0]);
+                                                                  console.log(fechas);
+                                                                  const conteoPorDia = fechas.reduce((acc, fecha) => {
+                                                                    acc[fecha] = (acc[fecha] || 0) + 1;
+                                                                    return acc;
+                                                                  }, {});
+                                                                  console.log(conteoPorDia);
+                                                                  const hoyStr = new Date().toISOString().split("T")[0];
+
+                                                                  const eventosHoy = eventos.filter(ev => ev.timestamp.split("T")[0] === hoyStr);
+                                                                  const conteoHoy = eventosHoy.length;
+                                                                  
+                                                                  eventohoy.textContent=conteoHoy;
+                                                                console.log('eventos hoy: ',conteoHoy);
+                                                                  const categorias = Object.keys(conteoPorDia).sort(); // Fechas ordenadas
+                                                                  const valores = categorias.map(f => conteoPorDia[f]);
+
+                                                                  console.log(categorias); // ["2025-11-24", "2025-11-25", "2025-11-26"]
+                                                                  console.log('conteoPorDia:',conteoPorDia)
+                                              
+                                                                  console.log(valores);  
+
+                                                                  const data=[
+                                                                          { fecha: "2025-01-01", count: 5 },
+                                                                           { fecha: "2025-01-02", count: 12 },
+                                                                           { fecha: "2025-01-03", count: 7 }
+                                                                     ]
+                                                                      Highcharts.chart('grafica-diaria', {
+                                                                          chart: {
+                                                                              // Option        al: you can explicitly enable/disable boost if needed
+                                                                               boost: {
+                                                                                   enabled: true 
+                                                                               },
+                                                                              type:'column'
+                                                                          },
+                                                                          title: {
+                                                                              text: 'Eventos durane la semana'
+                                                                          },
+                                                                          xAxis: {
+                                                                              categories: categorias,
+                                                                              type: 'column',
+
+                                                                          },
+                                                                          yAxis:{
+                                                                              type:'linear  ',
+
+                                                                          },
+                                                                          tooltip:{
+
+                                                                          },
+                                                                          series: [{
+                                                                              name:'total eventos',
+                                                                              data: valores,
+                                                                              type: '',
+                                                                              color: 'blue'
+
+                                                                          }]
+                                                                      });
+                                                                  
+
+                                                              } 
+                                                             eventodiario();
+
+                                                         
+                                                    
+                                                       
+
+
+
+                                                   </script>
+                                                
+                                                
+                                                <script>
+                                                    
+                                                </script>
+                                                <!--  <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div> -->
+                                                <!-- <div class="card-body">
+                                                  <canvas id="myChart" width="100%" height="40"></canvas>
+                                                </div> -->
+                                               <!--  <div id="myChart" style="width:100%; height:400px;"></div> -->
+
+                                                <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+                                                
+
+
+                                                    <script>
+                                                      /* --------------------------*/
+                                                      //const token= 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl9TQyIsImp0aSI6IjdlMDZmYWM5LTQ4YjAtNDMyMS04ZGU4LWMwYmI2ODM5MGMyNCIsInVzZXJJZCI6ImE5ZDliYjI5LTUwMmYtNDcwOC1iZTg5LTRhNGI3ZTk1NmUxYiIsImVtYWlsIjoiYWRtaW5Ac2MuY29tIiwicm9sZSI6InVzZXIiLCJFbnRlcnByaXNlIjoiU2FuIENyaXN0b2JhbCIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJuYmYiOjE3NTg0NjE1NTEsImV4cCI6MTc1ODUwNDc1MSwiaWF0IjoxNzU4NDYxNTUxLCJpc3MiOiJwdWxzYXJ1c2VycyIsImF1ZCI6InB1bHNhcmF1ZGllbmNlIn0.bx-rrku-abLy6AOblc2GxdH4ccaRHb444T5awImoheM'
+
+
+
+
+                                                        async function getData1(id) {
+                                                          try {
+                                                            console.log("get data1 id:", id);
+
+                                                            const res = await fetch(`/dashboard/spectro?triggerid=${id}`);
+
+                                                            if (!res.ok) {
+                                                              throw new Error(`Error HTTP ${res.status}`);
+                                                            }
+
+                                                            const data = await res.json();
+                                                             
+                                                            return data;
+
+                                                          } catch (err) {
+                                                            console.error("Error en getData1:", err);
+                                                            return null;
+                                                          }
+                                                        }
+
+                                                    /*----------------------------- */
+
+
+
+                                                   
+                                                   //grafico1()
+                                                    </script>
+                                            </div>
+                                        </div> 
+
+
+                                        <!-- <div class="col-xl-6">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    <i class="fas fa-chart-bar me-1"></i>
+                                                    Bar Chart Example
+                                                </div>
+                                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="card mb-4">
+
+                                        <div class="card-header">
+                                            <i class="bi bi-broadcast me-1"></i>
+                                            Eventos sismicos <br>
+                                            <label>Desde: <input type="date" id="InitialDate"></label>
+                                            <label>Hasta: <input type="date" id="LastDate" ></label>
+                                            <button onclick="DatosTabla()" class="btn btn-primary btn-sm" > Aplicar filtros</button>
+                                        </div>
+                                        <div class="card-body overflow-auto " style="max-height:400px;">
+                                            <div class="table-responsive">
+                                                    <table class="table table-hover" id="tablaEventos">
+                                                      <thead>
+                                                        <tr>
+                                                          <th scope="col">ID</th>
+                                                          <th scope="col">Nodo</th>
+                                                          <th scope="col">Fecha</th>
+                                                          <th scope="col">Direccion</th>
+                                                          <th scope="col">Opciones</th>
+                                                          <th scope="col"></th>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+
+                                                      </tbody>
+                                                    </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                    <!--script para obtener datos para tabla  -->
+                                         <script src="/dashboard/js/eventos.js"></script>
+
+
+                                    <!-- grfico de datos crudos -->
+                                <script>
+                                    const InitialDate = document.querySelector('#InitialDate');
+                                    const lastday = new Date();
+                                    lastday.setDate(lastday.getDate() + 1); // Restar 1 día
+                                    
+                                    const LastDate=document.querySelector('#LastDate');
+                                    LastDate.value = lastday.toISOString().split('T')[0];
+                                    const today = new Date().toISOString().split('T')[0];
+
+                                    
+                                    //const yesterday = new Date().toISOString().split('T')[0]-1;
+                                    //InitialDate.value = yesterday;
+                                    InitialDate.value=today;
+                                    const maximos={
+                                        xmax:0,
+                                        ymax:0,
+                                        zmax:0
+                                    }
+                                    async function grafico1(id){
+                                        /* if(tipo==='X'){
+
+                                        }else if(tipo==='Y'){
+
+                                        }else if(tipo==='Z'){
+
+                                        }else{
+                                            resturn.json('error al cargar datos')
+                                        } */
+                                         const data= await getData1(id);
+                                        const parsed = JSON.parse(data);
+                                        console.log("data spectro frontend",data)
+                                           console.log('tipo de data: ', typeof data)
+                                        const {frequencies,magnitudes} =parsed.x;
+                                           console.log('frequencies:',frequencies)
+                                           console.log('magnitudes: ',magnitudes)
+
+                                        const {frequencies:f2,magnitudes:a2}=parsed.y;
+                                        const {frequencies:f3,magnitudes:a3}=parsed.z;
+                                        //const  frecuencia=data.spectra.X.frequencies;
+                                           console.log(frequencies.length, magnitudes.length);
+                                           console.log(f2.length, a2.length);
+                                           console.log(f3.length, a3.length);
+                                        const chartData=frequencies.map((f, i) => [f, magnitudes[i]]);
+                                        const chartDataE1=f2.map((f,i)=>[f,a2[i]]);
+                                        const chartDataE2=f3.map((f,i)=>[f,a3[i]]);
+                                        function maxpoint(input){
+                                            return input.reduce((a, b) => (a[1] > b[1] ? a : b));
+                                        }
+                                         const xmax=maxpoint(chartData)
+                                         const ymax=maxpoint(chartDataE1)
+                                         const zmax=maxpoint(chartDataE2)
+                                        maximos.xmax=xmax;
+                                        maximos.ymax=ymax;
+                                        maximos.zmax=zmax;
+
+
+                                        //const maxPoint = chartData.reduce((a, b) => (a[1] > b[1] ? a : b));
+
+                                          Highcharts.chart('myChart', {
+                                            chart: {
+                                                // Option        al: you can explicitly enable/disable boost if needed
+                                                 boost: {
+                                                     enabled: true 
+                                                 }
+                                            },
+                                            title: {
+                                                text: 'ESPECTRO X(mm/s)'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}mm/s`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'X',
+                                                data: chartData,
+                                                type: 'line',
+                                                color: 'blue'
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[xmax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+
+                                    /* analisis espectral Y */
+                                    Highcharts.chart('espY', {
+                                            chart: {
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'ESPECTRO Y(mm/s)'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+                                                /* minorTickInterval:0.1,
+                                                min:0,
+                                                max:10 */
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}mm/s`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'Y',
+                                                data:chartDataE1,
+                                                type:'line',
+                                                color:'orange'
+
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[ymax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+                                    /* analisis espectral Z */
+                                    Highcharts.chart('espZ', {
+                                            chart: {
+                                                // Optional: you can explicitly enable/disable boost if needed
+                                                // boost: {
+                                                //     enabled: true 
+                                                // }
+                                            },
+                                            title: {
+                                                text: 'ESPECTRO Z(mm/s)'
+                                            },
+                                            xAxis: {
+                                                type: 'logarithmic',
+                                                /* minorTickInterval:0.1,
+                                                min:0,
+                                                max:10 */
+                                            },
+                                            yAxis:{
+                                                type:'linear  ',
+
+                                            },
+                                            tooltip:{
+                                                formatter:function(){
+                                                    return `<b>Frecuencia:</b> ${this.x} HZ <br/>
+                                                    <b>Amplitud:</b> ${this.y}mm/s`;  
+                                                }
+                                            },
+                                            series: [{
+                                                name:'Z',
+                                                data:chartDataE2,
+                                                type:'line',
+                                                color: 'green'
+                                            },{
+                                                type:'scatter',
+                                                name:'maximo',
+                                                data:[zmax],
+                                                maker:{
+                                                    symbol:'circle',
+                                                    radius:6,
+                                                    fillColor:'red',
+                                                    lineWidth:2,
+                                                    lineColor:'#000'
+                                                }
+                                            }]
+                                        });
+
+                                       }
+                                    async function getData2(id){
+                                        try{
+                                            const res=await fetch(`/dashboard/event?triggerid=${id}`,{
+                                                method:'GET',
+                                                headers:{
+
+                                                    'Content-Type':'application/json'
+                                                }
+
+                                            });
+                                            const data=await res.json();
+                                            return data;
+                                        }catch(err){
+                                            console.log(err);
+                                        }
+
+                                    }
+                                    async function grafico2(id){
+                                        console.log("grafico2 id: ",id)
+                                          Highcharts.setOptions({
+                                            time:{
+                                                useUTC:false
+                                            }
+                                        })  
+                                        const data=await getData2(id);
+                                        /*datos maximos  */
+                                        const vppx = document.getElementById("vppx-max");
+
+                                        const vppy = document.getElementById("vppy-max");
+                                        const vppz = document.getElementById("vppz-max");
+                                        const vsuma = document.getElementById("vsuma-max");
+                                       
+                                        
+                                    
+                                        const { eje_x,eje_y,vector_suma,eje_z}=data;
+                                        
+                                        const vppx_max=Math.max(...eje_x.map(p => Math.abs(Number(p.value)))).toFixed(3)
+                                        const vppy_max=Math.max(...eje_y.map(p => Math.abs(Number(p.value)))).toFixed(3)
+                                        const vppz_max=Math.max(...eje_z.map(p => Math.abs(Number(p.value)))).toFixed(3)
+                                        const vppsuma_max= vsuma.textContent= Math.max(...vector_suma.map(p => Math.abs(Number(p.value)))).toFixed(3)
+                                        vppx.textContent= vppx_max;
+                                        vppy.textContent=vppy_max;
+                                        vppz.textContent= vppz_max;
+                                        vsuma.textContent=vppsuma_max;
+                                        
+                                       
+                                        
+                                            const chartdata1=eje_x.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                                           Number(p.value)]);
+                                        console.log('chartdata1: ', typeof chartdata1)
+
+                                           const chartdata2=eje_y.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                                           Number(p.value)]);
+
+                                           const chartdata3=vector_suma.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                                           Number(p.value)]);
+
+                                           const chartdata4=eje_z.map(p=>[Date.parse(p.datetime.replace(/(\.\d{3})\d*/, '$1')+'Z'), // Date.parse devuelve UTC
+                                           Number(p.value)]);
+                                        
+
+                                        console.log('vpp max: ',vppx_max)
+                                        console.log('freqx max: ',maximos.xmax[0])
+                                        console.log("datos convertidos: ",chartdata1.slice(0,10));
+                                        Highcharts.chart('myChart1', {
+                                                        chart: {
+                                                            type:'line',
+                                                            zoomType:'x'
+                                                            // Optional: you can explicitly enable/disable boost if needed
+                                                            // boost: {
+                                                            //     enabled: true 
+                                                            // }
+                                                        },
+                                                        title: {
+                                                            text: 'Análisis  de geofono'
+                                                        },
+                                                        xAxis: {
+                                                            type: 'datetime'
+                                                        },
+                                                        yAxis:{
+                                                            title:{text:'Velocidad'}
+                                                        },
+                                                        tooltip:{
+                                                             formatter:function(){
+                                                                return `<b>Tiempo:</b> ${Highcharts.dateFormat('%Y-%m-%d %H:%M:%S',this.x)}  <br/>
+                                                                <b>velocidad:</b> ${this.y}mm/s`;  
+                                                            } 
+                                                        },
+                                                        series: [{
+                                                            name:'RADIAL',
+                                                            data: chartdata1,
+
+                                                        },{
+                                                            name:'TRANSVERSAL',
+                                                            data:chartdata2,
+                                                        },{
+                                                            name:'VECTOR SUMA',
+                                                            data:chartdata3,
+                                                        },{
+                                                            name:'VERTICAL',
+                                                            data:chartdata4,
+                                                        }]
+                                                    });
+                                                    const fecha=new Date();
+                                                    console.log(fecha);
+                                                    //DIN4150 
+                                        
+                                        console.log('tipo: ', Number(maximos.xmax))
+                                        console.log('tipo', Number(vppx_max))
+                                        Highcharts.chart('din4150', {
+                                            chart:{
+                                                zoomType:'xy'
+                                            },
+                                            title: { text: 'DIN 4150-3 con puntos de medición' },
+
+                                            xAxis: {
+                                                title: { text: 'Frecuencia (Hz)' },
+                                                gridLineWidth: 1,
+                                                allowDecimals: true,
+                                                type:'logarithmic',
+                                                tickInterval: null,
+                                               
+                                                labels: {
+                                                    format: '{value:.2f}'
+                                                }
+                                            },
+
+                                            yAxis: {
+                                                
+                                                title: { text: 'Velocidad (mm/s)' },
+                                                min: 0.000000000000000001,
+                                                gridLineWidth: 1,
+                                                
+                                                labels:{
+                                                    format:'{value:.2f}'
+                                                }
+                                            },
+
+                                            series: [
+                                                {
+                                                    name: 'Línea 1',
+                                                    type: 'line',
+                                                    data: [[1,20],[10,20],[20,30],[50,40],[100,50]]
+                                                },
+                                                {
+                                                    name: 'Línea 2',
+                                                    type: 'line',
+                                                    data: [[1,5],[10,5],[20,10],[50,15],[100,20]]
+                                                },
+                                                {
+                                                    name: 'Línea 3',
+                                                    type: 'line',
+                                                    data: [[1,3],[10,3],[20,5],[50,8],[100,10]]
+                                                },
+                                                {
+                                                    name: 'Puntos de medición',
+                                                    type: 'scatter',
+                                                    data: [
+                                                        [maximos.xmax[0],Number(vppx_max)],
+                                                        [maximos.ymax[0],Number(vppy_max)],
+                                                        [maximos.zmax[0],Number(vppz_max)],
+                                                    ],
+                                                    marker: {
+                                                        enabled:true,
+                                                        
+                                                        symbol: 'circle',
+                                                        radius: 8,
+                                                        
+                                                        
+                                                    }
+                                                }
+                                            ]
+                                        });
+                                        
+
+                                    }
+                                    
+                                    
+
+                                </script>
+                                    <script>
+                                        async function graficos(id){
+                                            grafico1(id);
+                                            grafico2(id);
+                                        }
+
+                                    </script>
+                                    
+                                    </script>
+                               <!--  ---------------------------------------------Modal para ver detalles de espectro------------------------------------------- -->
+                             <!-- Modal -->
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                
+                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Detalles del evento</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            <div id="card-max-values">
+                                                <div class="card border-secondary mb-3 rounded-5" style="max-width: 18rem; boder:2px solid black;">
+                                                  <div class="card-body text-secondary">
+                                                    <h5 class="card-title">maximo eje x(mm/s)</h5>
+                                                    <p id="vppx-max"class="card-text">0</p>
+                                                  </div>
+                                                </div>
+                                                <div class="card border-secondary mb-3 rounded-5" style="max-width: 18rem; border:2px solid black;">
+                                                  <div class="card-body text-secondary">
+                                                    <h5 class="card-title">maximo eje y(mm/s)</h5>
+                                                    <p id="vppy-max" class="card-text">0</p>
+                                                  </div>
+                                                </div>
+                                                <div class="card border-secondary mb-3 rounded-5" style="max-width: 18rem; border:2px solid black;">
+                                                  <div class="card-body text-secondary">
+                                                    <h5 class="card-title">maximo eje z(mm/s)</h5>
+                                                    <p id="vppz-max" class="card-text">0</p>
+                                                  </div>
+                                                </div>
+                                                <div class="card border-secondary mb-3 rounded-5" style="max-width: 18rem; border:2px solid black;">
+                                                  <div class="card-body text-secondary">
+                                                    <h5 class="card-title">maximo vector suma(mm/s)</h5>
+                                                    <p id="vsuma-max" class="card-text">0</p>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        
+                                          <div id="myChart1" style="width:100%; height:500px;"></div> 
+                                            <h5 class="mt-4 mb-2">Analisis Espectral</h5>
+                                           <div id="myChart" style="width:100%; height:400px;"></div>
+                                           <div id="espY" style="width:100%; height:400px;"></div>
+                                           <div id="espZ" style="width:100%; height:400px;"></div>
+                                            <div id='din4150' style="width:100%; height:400px;"></div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button id="exportar" type="button" class="btn btn-secondary">Exportar</button>
+                                        <button  type="button" class="btn btn-primary">Save changes</button>
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            <!--  ---------------------------------------------Modal para ver detalles de espectro------------------------------------------- -->
+                                
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js">
+                                </script>
+                                
+                                <script type="module">
+                                    async function chartToPng(chart) {
+                                        const svg = chart.getSVG();
+
+                                        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+                                        const url = URL.createObjectURL(svgBlob);
+
+                                        const img = await new Promise(resolve => {
+                                            const image = new Image();
+                                            image.onload = () => resolve(image);
+                                            image.src = url;
+                                        });
+
+                                        const canvas = document.createElement("canvas");
+                                        canvas.width = img.width;
+                                        canvas.height = img.height;
+
+                                        const ctx = canvas.getContext("2d");
+                                        ctx.drawImage(img, 0, 0);
+
+                                        URL.revokeObjectURL(url);
+
+                                        return canvas.toDataURL("image/png");
+                                    }
+
+                                    // --------------- BOTÓN EXPORTAR -------------------
+                                    document.getElementById("exportar").addEventListener('click', async function () {
+
+                                        console.log('Generando PDF...');
+                                        const { jsPDF } = window.jspdf;
+                                        const doc = new jsPDF();
+
+                                        // Altura máxima útil de la página
+                                        const LIMITE_Y = 290;
+                                        const ALTURA_IMG = 80;
+
+                                        // Función para agregar un gráfico con título
+                                        async function addChart(doc, chart, titulo, y) {
+                                            if (!chart) return y;
+
+                                            const pngData = await chartToPng(chart);
+
+                                            // Salto de página automático
+                                            if (y + ALTURA_IMG > LIMITE_Y) {
+                                                doc.addPage();
+                                                y = 15;
+                                            }
+
+                                            doc.text(titulo, 10, y);
+                                            y += 5;
+
+                                            doc.addImage(pngData, 'PNG', 10, y, 180, ALTURA_IMG);
+                                            y += ALTURA_IMG + 10; // Espacio entre gráficos
+
+                                            return y;
+                                        }
+
+                                        // Obtener gráficos (ajusta estos si cambian tus contenedores)
+                                        const chart  = Highcharts.charts[1];
+                                        const chart1 = Highcharts.charts[2];
+                                        const chart2 = Highcharts.charts[3];
+                                        const chart3 = Highcharts.charts[4];
+                                        const chart4 = Highcharts.charts[5];
+
+                                        // Generar PDF en orden
+                                        let y = 15;
+                                        y = await addChart(doc, chart3,  "Reporte de evento", y);
+                                        y = await addChart(doc, chart, "Gráfico espectro X", y);
+                                        y = await addChart(doc, chart1, "Gráfico espectro Y", y);
+                                        y = await addChart(doc, chart2, "Gráfico espectro Z", y);
+                                        y = await addChart(doc, chart4, "Norma DIN4150", y);
+
+                                        // Guardar PDF
+                                        doc.save("reporte-vibraciones.pdf");
+                                    });
+
+                                </script>
+                        </main>
+                            <footer class="py-4 bg-light mt-auto">
+                                <div class="container-fluid px-4">
+                                    <div class="d-flex align-items-center justify-content-between small">
+                                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                                        <div>
+                                            <a href="#">Privacy Policy</a>
+                                            &middot;
+                                            <a href="#">Terms &amp; Conditions</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+                    
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+                    <script src="js/datatables-simple-demo.js"></script>
+
+                    <script>
+                        document.querySelector("#tablaEventos tbody").addEventListener("click", (event) => {
+                            if (event.target.tagName === "BUTTON") {
+                              const boton = event.target;
+                              const fila = boton.closest("tr");
+                              const id = fila.querySelector("td").textContent;
+                                const modal=document.getElementById("exampleModalLongTitle")
+                                //const modaltitle=modal.querySelector('.modal-title');
+                                modal.textContent=`Detalles del evento: ${id}`;
+                                
+                                console.log()
+                                graficos(id)
+                            }
+                          });
+                        
+                    </script>
+                        <script>
+                            async function verificarEvento(){
+                                const res=await fetch('/dashboard/update')
+                                const data=await res.json();
+                                console.log('resultado: ',data);
+                            
+                            }
+                            window.onload=verificarEvento;
+                        </script>
+                        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                              integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                              crossorigin=""></script>
+                        <%- include('_footer.ejs') %>
+                </body>
+            </html>

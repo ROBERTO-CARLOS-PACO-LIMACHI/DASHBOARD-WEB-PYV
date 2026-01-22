@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>Document</title>
+  </head>
+  <body class="sb-nav-fixed" id="body-users"
+    
+    style="
+      margin: 0;
+      font-family: var(--bs-body-font-family);
+      font-size: var(--bs-body-font-size);
+      font-weight: var(--bs-body-font-weight);
+      line-height: var(--bs-body-line-height);
+      color: var(--bs-body-color);
+      text-align: var(--bs-body-text-align);
+      background-color: var(--bs-body-bg);
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    ">
+    <%- include('_header.ejs') %>
+    
+      <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+                
+                  <h1>Usuarios</h1>
+                  <table class="table table-bordered" id="users-table1">
+                    <caption>List of users</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">opciones</th>
+
+                      </tr>
+                    </thead>
+                    <tbody id="users-table">
+                    </tbody>
+                  </table>
+              <button  id="mostrarfrm" class="btn btn-secondary"> añadir usuario</button>
+
+
+                <form id="form-register" method="POST" action="/register"  style="display:none">
+                  <div class="form-group">
+                    <label for="email">Correo electronico</label>
+                    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="correo electrónico">
+
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Nombre: </label>
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Nombre">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname">Apellido: </label>
+                    <input  name="lastname" type="text" class="form-control" id="lastname" placeholder="Nombre">
+                  </div>
+                  <div class="form-group">
+                    <label for="username">Nombre de usuario: </label>
+                    <input name="username" type="text" class="form-control" id="username" placeholder="Nombre">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Contraseña: </label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Contraseña">
+                  </div>
+                  <div class="form-group">
+                    <label for="role">Rol: </label>
+
+                    <select name="role" id="role">
+                      <option value="Admin">Admin</option>
+                      <option value="Usuario">Usuario</option>
+                    </select>
+                    <button type="submit"  class="btn btn-secondary">Registrar</button>
+                  </div>
+                </form>
+              <dialog id="EditDialog">
+                 <form id="form-edit" method="POST" action="/userEdit" >
+                   <div class="form-group">
+                     <label for="edit-email">Correo electronico</label>
+                     <input name="edit-email" type="email" class="form-control" id="edit-email" aria-describedby="emailHelp" placeholder="correo electrónico">
+                   </div>
+                   <div class="form-group">
+                     <label for="edit-name">Nombre: </label>
+                     <input name="edit-name" type="text" class="form-control" id="edit-name" placeholder="Nombre">
+                   </div>
+                   <div class="form-group">
+                     <label for="edit-lastname">Apellido: </label>
+                     <input  name="edit-lastname" type="text" class="form-control" id="edit-lastname" placeholder="Apellido">
+                   </div>
+                   <div class="form-group">
+                     <label for="edit-username">Nombre de usuario: </label>
+                     <input name="edit-username" type="text" class="form-control" id="edit-username" placeholder="Nombre de usuario">
+                   </div>
+
+                   <div class="form-group">
+                     <label for="edit-role">Rol: </label>
+
+                     <select name="edit-role" id="edit-role">
+                       <option value="Admin">Admin</option>
+                       <option value="Usuario">Usuario</option>
+                     </select>
+                     <button type="submit" class="btn btn-primary"  >editar</button>
+                     <button type="reset" id="cancel-edit" class="btn btn-primary">Cancelar</button>
+                   </div>
+
+
+                 </form>
+               </dialog>
+
+                
+              <h1>Auditoria</h1>
+              <table class="table table-bordered" id="auditoria-table1">
+                <caption>Registros de auditoría</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">ID usuario: </th>
+                    <th scope="col">accion: </th>
+                    <th scope="col">nodo/evento ID: </th>
+                    <th scope="col">Descripcion: </th>
+                    <th scope="col">Fecha: </th>
+                  </tr>
+                </thead>
+                <tbody id="auditoria-table">
+                </tbody>
+              </table>
+              <div style="margin: 10px 0; display: flex; align-items: center; gap: 10px;">
+                <button id="btn-anterior" class="btn btn-secondary">Anterior</button>
+                <span id="pagina-info">Página 1</span>
+                <button id="btn-siguiente" class="btn btn-secondary">Siguiente</button>
+                <span id="total-info" style="margin-left: 20px;"></span>
+              </div>
+              
+               
+                <script>
+                  
+                  async function loadUsers() {
+                    try {
+                      const response = await fetch("/dashboard/find");
+
+                      // Validar respuesta HTTP
+
+
+                      // Parsear respuesta
+                      const users = await response.json();
+                      console.log('Usuarios recibidos:', users);
+
+                      // Seleccionar tbody correcto
+                      const tbody = document.querySelector("#users-table");
+                      tbody.innerHTML = "";
+
+                      // Crear filas dinámicamente
+                      users.forEach(user => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                          <td>${user.name}</td>
+                          <td>${user.lastname}</td>
+                          <td>${user.email}</td>
+                          <td>${user.username}</td>
+                          <td>${user.role}</td>
+                          <td><input type="button" class="btn btn-primary btn-sm m-1 btn-edit" btn btn-secondary data-id="${user._id}" value="Editar"></td>
+                          <td><input  type="button" class="btn btn-danger btn-sm m-1 btn-delete" value="Eliminar" data-id="${user._id}"></td>
+                        `;
+                        tbody.appendChild(row);
+                      });
+
+                    } catch (error) {
+                      console.error("❌ Error cargando usuarios:", error);
+                    }
+                  }
+
+                  // Cargar usuarios al iniciar la página
+                  window.addEventListener("DOMContentLoaded", loadUsers);
+                </script>
+              <script>
+                let paginaActual = 1;
+                const registrosPorPagina = 5;
+                let totalRegistros = 0;
+
+                async function auditoria(offset = 0){
+                  try {
+                    const respuesta = await fetch(`/dashboard/auditoria?offset=${offset}&limit=${registrosPorPagina}`)
+                    console.log("respuesta: ",respuesta)
+                    if (!respuesta.ok) {
+                      throw new Error(
+                        `Error en la consulta: ${respuesta.status} ${respuesta.statusText}`,
+                      );
+                    }
+
+                    
+                    const datos = await respuesta.json();
+                    const todos=datos.slice(offset,offset+registrosPorPagina);
+                    console.log('Datos de auditoría recibidos:', datos.count);
+                    console.log('datos auditoria: ',datos)
+                    
+                    totalRegistros = datos.length || 0;
+                    console.log('total registros: ',totalRegistros)
+                    const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina);
+                    console.log('total paginas: ',totalPaginas)
+                    
+                    const tbody = document.querySelector("#auditoria-table");
+                    tbody.innerHTML = "";
+                    console.log('longitud: ', datos.length)
+                    // Verificar si hay resultados
+                    if (!datos || datos.length === 0) {
+                      tbody.innerHTML = '<tr><td colspan="5">No hay registros de auditoría</td></tr>';
+                      return;
+                    }
+                    console.log("datos:", datos, Array.isArray(datos))
+                    // Crear filas dinámicamente
+                    todos.forEach(item => {
+                      const row = document.createElement("tr");
+                      row.innerHTML = `
+                        <td>${item.usuario_id || 'N/A'}</td>
+                        <td>${item.accion || 'N/A'}</td>
+                        <td>${item.registro_id || 'N/A'}</td>
+                        <td>${item.detalle || 'N/A'}</td>
+                        <td>${item.fecha ? new Date(item.fecha).toLocaleString() : 'N/A'}</td>
+                      `;
+                      tbody.appendChild(row);
+                    });
+
+                    // Actualizar información de paginación
+                    document.getElementById('pagina-info').textContent = `Página ${paginaActual} de ${totalPaginas}`;
+                    document.getElementById('total-info').textContent = `Total: ${totalRegistros} registros`;
+                    
+                    // Habilitar/deshabilitar botones
+                    document.getElementById('btn-anterior').disabled = paginaActual === 1;
+                    document.getElementById('btn-siguiente').disabled = paginaActual >= totalPaginas;
+
+                  } catch (error) {
+                    console.error("Error al obtener datos:", error);
+                    const tbody = document.querySelector("#auditoria-table");
+                    tbody.innerHTML = '<tr><td colspan="5">Error al cargar datos de auditoría</td></tr>';
+                    
+                    
+                  }
+                }
+
+                // Event listeners para botones de paginación
+                document.addEventListener("DOMContentLoaded", () => {
+                  auditoria(0);
+                  
+                  document.getElementById('btn-anterior').addEventListener('click', () => {
+                    if (paginaActual > 1) {
+                      paginaActual--;
+                      const offset = (paginaActual - 1) * registrosPorPagina;
+                      auditoria(offset);
+                    }
+                  });
+
+                  document.getElementById('btn-siguiente').addEventListener('click', () => {
+                    const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina);
+                    if (paginaActual < totalPaginas) {
+                      paginaActual++;
+                      const offset = (paginaActual - 1) * registrosPorPagina;
+                      auditoria(offset);
+                    }
+                  });
+                });
+              </script>
+
+              <script>
+                const cancelEdit=document.getElementById('cancel-edit');
+                
+                const  tbody=document.getElementById('users-table')
+                const editdialog=document.getElementById('EditDialog');
+                tbody.addEventListener('click',(e)=>{
+                  
+                  const editButton=e.target.closest('.btn-edit')
+                  
+                  const deleteButton = e.target.closest('.btn-delete');
+                  
+                  if(deleteButton){
+                    const id=e.target.dataset.id;
+                    fetch(`/user/${id}`,{
+                      method: "DELETE",
+                      headers:{
+                        "Content-Type": "application/json",
+                      }
+                    })
+                    .then(res => {
+                        if (res.ok) { // Verifica si la respuesta es exitosa (código 2xx)
+                            loadUsers(); // Recarga los usuarios
+                        } else {
+                            console.error('Error al eliminar el usuario en el servidor', res.status);
+                        }
+                    })
+                  }
+                  
+                  if (editButton) {
+                      // AÑADE ESTOS CONSOLE.LOGS:
+                      console.log("¡Botón de editar clickeado!"); 
+                      console.log("Valor de editButton:", editButton);
+
+                      const editdialog = document.getElementById('EditDialog');
+                      console.log("Valor de editdialog:", editdialog);
+
+                      if (editdialog && typeof editdialog.showModal === 'function') {
+                          editdialog.showModal();
+                          console.log("showModal() ejecutado con éxito.");
+                      } else {
+                          console.error("Fallo al abrir modal: editdialog es null O no es un <dialog> válido.");
+                      }
+                  }
+                  cancelEdit.addEventListener('click',()=>{
+                        editdialog.close();
+                  })
+                  
+                  });
+
+                
+
+                const btnform=document.getElementById('mostrarfrm');
+                const formulario=document.getElementById("form-register");
+                btnform.addEventListener('click',()=>{
+                  if (formulario.style.display === 'none') {
+                    formulario.style.display = 'block';
+                  } else {
+                    // Si está visible (block, o vacío por defecto), ocúltalo (none)
+                    formulario.style.display = 'none';
+                  }
+                });
+              </script>
+            
+        </main>
+      </div>
+                  <%- include('_footer.ejs') %>
+    </body>
+</html>
