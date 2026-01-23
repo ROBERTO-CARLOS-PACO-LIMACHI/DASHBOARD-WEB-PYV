@@ -302,7 +302,20 @@ export class NodeModel {
     const datos=data;
     console.log('conectado al endpoint de agregar datos')
     console.log(datos)
-    const result="nodo conectado :)"
+    //const result=await guardarDB(datos)
+    const mapEje=eje=>
+      eje.map((value,i)=>({value,timestamp:datos.timestamp[i]}))
+    const resultado={
+      eje_x:mapEje(datos.eje_x),
+      eje_y:mapEje(datos.eje_y),
+      eje_z:mapEje(datos.eje_z)
+    }
+    const vector_suma=datos.eje_x.map((_,i)=>({
+      value:datos.eje_x[i]+datos.eje_y[i]+datos.eje_z[i],
+      datetime:datos.datetime[i]
+    }))
+    console.log("datos convetidos: ",result)
+    console.log("vector suma : ",vector_suma)
     return result
   }
 }
