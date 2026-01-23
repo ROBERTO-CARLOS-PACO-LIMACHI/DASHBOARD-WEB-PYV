@@ -102,7 +102,10 @@ export class NodeController {
     }
     static async addEvento(req, res) {
         const data = req.body;
+        const result=await NodeModel.addEvento(data)
         console.log("data prueba CONTROLLER : ", data);
+
         return res.json('mensaje del  controlador de addevent')
     }
+    
 }
