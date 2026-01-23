@@ -298,10 +298,10 @@ export class NodeModel {
     }
     return res;
   }
-  static async addEvento(req,res){
+  static async addEvento(data){
     const data=req.body;
     console.log('conectado al endpoint de agregar datos')
     console.log(data)
-    return res.json("nodo conectado :)")
+    return json({"nodo conectado :)"})
   }
 }
