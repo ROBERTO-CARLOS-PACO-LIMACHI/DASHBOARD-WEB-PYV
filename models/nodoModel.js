@@ -302,6 +302,6 @@ export class NodeModel {
     const datos=data;
     console.log('conectado al endpoint de agregar datos')
     console.log(datos)
-    return json("nodo conectado :)")
+    return json({"nodo conectado :)"})
   }
 }
