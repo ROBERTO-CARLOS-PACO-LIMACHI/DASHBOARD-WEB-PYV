@@ -314,7 +314,7 @@ export class NodeModel {
       value:datos.eje_x[i]+datos.eje_y[i]+datos.eje_z[i],
       datetime:datos.datetime[i]
     }))
-    console.log("datos convetidos: ",result)
+    console.log("datos convetidos: ",resultado)
     console.log("vector suma : ",vector_suma)
     return result
   }
