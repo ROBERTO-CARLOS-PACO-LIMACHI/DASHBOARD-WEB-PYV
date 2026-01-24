@@ -303,7 +303,9 @@ export class NodeModel {
     console.log('conectado al endpoint de agregar datos')
     console.log(datos)
     //const result=await guardarDB(datos)
-    console.log("data x: ",datos.eje_x)
+    console.log("data x: ",typeof datos.eje_x)
+    console.log("data y: ",typeof datos.eje_y)
+    console.log("data z: ",typeof datos.eje_z)
     const mapEje=eje=>
       eje.map((value,i)=>({value,timestamp:datos.timestamp[i]}))
     const resultado={
