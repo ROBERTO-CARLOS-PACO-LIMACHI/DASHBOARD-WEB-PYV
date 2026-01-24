@@ -303,6 +303,7 @@ export class NodeModel {
     console.log('conectado al endpoint de agregar datos')
     console.log(datos)
     //const result=await guardarDB(datos)
+    console.log("data x: ",datos.eje_x)
     const mapEje=eje=>
       eje.map((value,i)=>({value,timestamp:datos.timestamp[i]}))
     const resultado={
@@ -314,7 +315,7 @@ export class NodeModel {
       value:datos.eje_x[i]+datos.eje_y[i]+datos.eje_z[i],
       datetime:datos.datetime[i]
     }))
-    console.log("data x: ",datos.eje_x)
+    
     console.log("datos convetidos: ",resultado)
     console.log("vector suma : ",vector_suma)
     return result
