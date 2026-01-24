@@ -307,9 +307,9 @@ export class NodeModel {
     const mapEje=eje=>
       eje.map((value,i)=>({value,timestamp:datos.timestamp[i]}))
     const resultado={
-      eje_x:mapEje(datos.eje_x),
-      eje_y:mapEje(datos.eje_y),
-      eje_z:mapEje(datos.eje_z)
+      ejex:mapEje(datos.eje_x),
+      ejey:mapEje(datos.eje_y),
+      ejez:mapEje(datos.eje_z)
     }
     const vector_suma=datos.eje_x.map((_,i)=>({
       value:datos.eje_x[i]+datos.eje_y[i]+datos.eje_z[i],
