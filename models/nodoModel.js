@@ -306,7 +306,7 @@ export class NodeModel {
     console.log("data x: ",typeof datos.eje_x)
     console.log("data y: ",typeof datos.eje_y)
     console.log("data z: ",typeof datos.eje_z)
-    const mapEje=eje=>
+    const mapEje=(eje=[],timestamp=[])=>
       eje.map((value,i)=>({value,timestamp:datos.timestamp[i]}))
     const resultado={
       ejex:mapEje(datos.eje_x),
