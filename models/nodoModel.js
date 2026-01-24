@@ -313,6 +313,7 @@ export class NodeModel {
       ejey:mapEje(datos.eje_y),
       ejez:mapEje(datos.eje_z)
     }
+    console.log("prueba 1 pasada")
     const vector_suma=datos.eje_x.map((_,i)=>({
       value:datos.eje_x[i]+datos.eje_y[i]+datos.eje_z[i],
       datetime:datos.datetime[i]
