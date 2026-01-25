@@ -316,7 +316,7 @@ export class NodeModel {
     }
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=datos.keys(ejex).map(k=>({
-      value:ejex[k]+ejey[k]+ejez[k],
+      value:eje_x[k]+eje_y[k]+eje_z[z],
       timestamp:[k]
    }))
     
