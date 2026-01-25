@@ -304,9 +304,9 @@ export class NodeModel {
     console.log(datos)
     //const result=await guardarDB(datos)
     const timestamp=datos.timestamp
-    eje_x=datos.eje_x
-    eje_y=datos.eje_y
-    eje_z=datos.eje_z
+    let eje_x=datos.eje_x
+    let eje_y=datos.eje_y
+    let eje_z=datos.eje_z
 
     console.log("data x: ",typeof datos.eje_x)
     console.log("data y: ",typeof datos.eje_y)
