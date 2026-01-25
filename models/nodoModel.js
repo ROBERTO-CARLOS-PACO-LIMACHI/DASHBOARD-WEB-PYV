@@ -307,8 +307,9 @@ export class NodeModel {
     console.log("data x: ",typeof datos.eje_x)
     console.log("data y: ",typeof datos.eje_y)
     console.log("data z: ",typeof datos.eje_z)
+    
     const mapEje=(eje=[],timestamp=[])=>
-      eje.map((value,i)=>({value,timestamp:timestamp[i]}))
+      eje.map((value,i)=>({value:2*(9.81)*value/32768,timestamp:timestamp[i]}))
     const resultado={
       ejex:mapEje(datos.eje_x,timestamp),
       ejey:mapEje(datos.eje_y,timestamp),
@@ -316,7 +317,7 @@ export class NodeModel {
     }
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
-      value:datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k],
+      value:2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768,
       timestamp:[k]
    }))
     
