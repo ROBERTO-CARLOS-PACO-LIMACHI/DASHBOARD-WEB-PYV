@@ -322,6 +322,6 @@ export class NodeModel {
     
     console.log("datos convetidos: ",resultado)
     console.log("vector suma : ",vector_suma)
-    return result
+    return resultado
   }
 }
