@@ -313,12 +313,12 @@ export class NodeModel {
     const resultado={
       ejex:mapEje(datos.eje_x,timestamp),
       ejey:mapEje(datos.eje_y,timestamp),
-      ejez:mapEje(datos.eje_z,timestamp)
+      ejez:mapEje(datos.eje_z,timestamp)-9.81
     }
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
       value:2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768,
-      timestamp:[k]
+      timestamp:timestamp[k]
    }))
     
     console.log("datos convetidos: ",resultado)
