@@ -317,7 +317,7 @@ export class NodeModel {
     }
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
-      value:2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768,
+      value:2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81,
       timestamp:timestamp[k]
    }))
     
