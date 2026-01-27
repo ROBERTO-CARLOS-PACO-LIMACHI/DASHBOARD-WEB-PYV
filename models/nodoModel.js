@@ -329,9 +329,9 @@ export class NodeModel {
       ejez:mapEjez(datos.eje_z,timestamp)
     }
     const id=crypto.randomUUID()
-    resultado.metadata.nodo_id=datos.nodo_id
+    resultado.metadata.nodo_id=datos.metadata.nodo_id
     resultado.metadata.timestamp=new Date().toISOString()
-    resultado.metadata.direccion=datos.direccion
+    resultado.metadata.direccion=datos.metadata.direccion
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
       value:Math.abs(2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81),
