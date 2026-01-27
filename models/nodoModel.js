@@ -307,6 +307,8 @@ export class NodeModel {
     let eje_x=datos.eje_x
     let eje_y=datos.eje_y
     let eje_z=datos.eje_z
+    /*creando nuevo evento  */
+    
 
     console.log("data x: ",typeof datos.eje_x)
     console.log("data y: ",typeof datos.eje_y)
@@ -315,7 +317,7 @@ export class NodeModel {
 
     const mapEje=(eje=[],timestamp=[])=>{
       console.log("eje a convertir: ",eje)
-      return eje.map((value,i)=>({value:2*(9.81)*value/32768,timestamp:timestamp[i]}))
+      return eje.map((value,i)=>({value:2*(9.81)*Math.abs(value)/32768,timestamp:timestamp[i]}))
     }
     const mapEjez=(eje=[],timestamp=[])=>{
       console.log("eje a convertir: ",eje)
@@ -326,9 +328,13 @@ export class NodeModel {
       ejey:mapEje(datos.eje_y,timestamp),
       ejez:mapEjez(datos.eje_z,timestamp)
     }
+    const id=crypto.randomUUID()
+    resultado.nodo_id=datos.nodo_id
+    resultado.timestamp=new Date().toISOString()
+    resultado.direccion=datos.direccion
     console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
-      value:2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81,
+      value:Math.abs(2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81),
       timestamp:timestamp[k]
    }))
     resultado.vector_suma=vector_suma
