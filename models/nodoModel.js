@@ -319,7 +319,7 @@ export class NodeModel {
     }
     const mapEjez=(eje=[],timestamp=[])=>{
       console.log("eje a convertir: ",eje)
-      return eje.map((value,i)=>({value:2*(9.81)*value/32768-9.81,timestamp:timestamp[i]}))
+      return eje.map((value,i)=>({value:Math.abs(2*(9.81)*Math.abs(value)/32768-9.81),timestamp:timestamp[i]}))
     }
     const resultado={
       ejex:mapEje(datos.eje_x,timestamp),
