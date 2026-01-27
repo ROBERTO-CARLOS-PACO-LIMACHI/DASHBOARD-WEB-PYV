@@ -328,6 +328,7 @@ export class NodeModel {
       ejey:mapEje(datos.eje_y,timestamp),
       ejez:mapEjez(datos.eje_z,timestamp)
     }
+    resultado.metadata={}
     const id=crypto.randomUUID()
     resultado.metadata.nodo_id=datos.metadata.nodo_id
     resultado.metadata.timestamp=new Date().toISOString()
