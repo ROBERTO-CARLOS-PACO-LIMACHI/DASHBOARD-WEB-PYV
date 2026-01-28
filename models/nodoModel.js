@@ -330,9 +330,10 @@ export class NodeModel {
     const resultado={
       ejex:mapEje(datos.eje_x,timestamp),
       ejey:mapEje(datos.eje_y,timestamp),
-      ejez:mapEjez(datos.eje_z,timestamp)
+      ejez:mapEjez(datos.eje_z,timestamp),
+      metadata:{}
     }
-    resultado.metadata={}
+    
     const id=crypto.randomUUID()
     resultado.metadata.nodo_id=datos.metadata.nodo_id
     resultado.metadata.trigger=this.trigger
@@ -346,7 +347,7 @@ export class NodeModel {
     resultado.vector_suma=vector_suma
     console.log("datos convetidos: ",resultado)
    // console.log("vector suma : ",vector_suma)
-    const res= guardarDB(resultado)
+    const res= await guardarDB(resultado)
     //const res1=await res.json()
     console.log("resultado de guardar en bd: ",res)
     return resultado
