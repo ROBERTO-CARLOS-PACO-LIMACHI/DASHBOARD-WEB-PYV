@@ -80,10 +80,10 @@ const guardarDB = async (evento) => {
     nodo_id: evento.metadata?.node_name ?? evento.metadata?.nodo_id,
     timestamp: evento.metadata?.trigger_datetime ?? evento.metadata?.timestamp,
     direccion: evento.metadata?.trigger_direction ?? evento.metadata?.direccion,
-    eje_x: evento?.signals.RADIAL ?? evento?.eje_x,
-    eje_y: evento?.signals.TRANSVERSAL ?? evento?.eje_y,
+    eje_x: evento?.signals?.RADIAL ?? evento?.eje_x,
+    eje_y: evento?.signals?.TRANSVERSAL ?? evento?.eje_y,
     vector_suma: evento?.signals["VECTOR SUMA"] ?? evento?.vector_suma,
-    eje_z: evento?.signals.VERTICAL ?? evento?.eje_z,
+    eje_z: evento?.signals?.VERTICAL ?? evento?.eje_z,
     sample_rate_detected: evento.metadata.sample_rate_detected,
   });
 };
