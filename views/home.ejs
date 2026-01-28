@@ -517,7 +517,7 @@
                                         }else{
                                             resturn.json('error al cargar datos')
                                         } */
-                                         const data= await getData1(id);
+                                        const data= await getData1(id);
                                         const parsed = JSON.parse(data);
                                         console.log("data spectro frontend",data)
                                            console.log('tipo de data: ', typeof data)
@@ -533,9 +533,10 @@
                                            console.log(f3.length, a3.length);
 
                                         const chartData=frequencies.map((f, i) => [f, magnitudes[i]]);
-                                        console.log('chartdata: ',chartData)
+                                        
                                         const chartDataE1=f2.map((f,i)=>[f,a2[i]]);
                                         const chartDataE2=f3.map((f,i)=>[f,a3[i]]);
+                                        console.log('chartData2:',chartDataE2);
                                         function maxpoint(input){
                                             return input.reduce((a, b) => (a[1] > b[1] ? a : b));
                                         }
