@@ -84,7 +84,7 @@ const guardarDB = async (evento) => {
     eje_y: evento?.signals?.TRANSVERSAL ?? evento?.eje_y,
     vector_suma: evento?.signals?.["VECTOR SUMA"] ?? evento?.vector_suma,
     eje_z: evento?.signals?.VERTICAL ?? evento?.eje_z,
-    sample_rate_detected: evento.metadata.sample_rate_detected,
+    sample_rate_detected: evento.metadata?.sample_rate_detected,
   });
 };
 
