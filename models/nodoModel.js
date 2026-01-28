@@ -65,7 +65,7 @@ const obtenerUltimoTrigger = async () => {
 
 const guardarDB = async (evento) => {
   const existe = await eventos.findOne({
-    trigger: evento.metadata.event_trigger_id ?? evento.metadata.trigger,
+    trigger: evento.metadata?.event_trigger_id ?? evento.metadata?.trigger,
   });
   //console.log('el evento existe: ');
   console.log("existe: ", existe);
@@ -346,7 +346,7 @@ export class NodeModel {
     resultado.vector_suma=vector_suma
     console.log("datos convetidos: ",resultado)
     console.log("vector suma : ",vector_suma)
-    const res= guardarDB({resultado})
+    const res= await guardarDB({resultado})
 
     console.log("resultado de guardar en bd: ",res)
     return resultado
