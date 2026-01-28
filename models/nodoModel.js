@@ -65,7 +65,7 @@ const obtenerUltimoTrigger = async () => {
 
 const guardarDB = async (evento) => {
   const existe = await eventos.findOne({
-    trigger: evento.metadata.event_trigger_id,
+    trigger: evento.metadata.event_trigger_id || evento.metadata.trigger,
   });
   //console.log('el evento existe: ');
   console.log("existe: ", existe);
