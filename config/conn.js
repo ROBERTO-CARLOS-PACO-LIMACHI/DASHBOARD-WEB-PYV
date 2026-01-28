@@ -4,7 +4,7 @@ export async function obtenerToken() {
   try {
     
     const respuesta = await fetch(
-      "https://cosmosblastingtools.com/pulsaronline/api/v1/users/login",
+      "https://pulsar.cosmosblastingtools.com/pulsaronline/api/v1/users/login",
       {
         method: "POST",
         headers: {
