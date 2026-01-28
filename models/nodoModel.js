@@ -305,7 +305,7 @@ export class NodeModel {
     const datos=data;
     
     console.log('conectado al endpoint de agregar datos')
-    console.log(datos)
+    //console.log(datos)
     //const result=await guardarDB(datos)
     const timestamp=datos.timestamp
     let eje_x=datos.eje_x
@@ -314,9 +314,9 @@ export class NodeModel {
     /*creando nuevo evento  */
     
 
-    console.log("data x: ",typeof datos.eje_x)
-    console.log("data y: ",typeof datos.eje_y)
-    console.log("data z: ",typeof datos.eje_z)
+    //console.log("data x: ",typeof datos.eje_x)
+    //console.log("data y: ",typeof datos.eje_y)
+    //console.log("data z: ",typeof datos.eje_z)
     //console.log("datos nuevos", typeof eje_x)
 
     const mapEje=(eje=[],timestamp=[])=>{
@@ -339,7 +339,7 @@ export class NodeModel {
     resultado.metadata.trigger=this.trigger
     resultado.metadata.timestamp=new Date().toISOString()
     resultado.metadata.direccion=datos.metadata.direccion
-    console.log("prueba 1 pasada ",resultado)
+    //console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
       value:Math.abs(2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81),
       timestamp:timestamp[k]
