@@ -329,9 +329,9 @@ export class NodeModel {
       return eje.map((value,i)=>({value:Math.abs(2*(9.81)*Math.abs(value)/32768-9.81),timestamp:timestamp[i]}))
     }
     const resultado={
-      ejex:mapEje(datos.eje_x,timestamp),
-      ejey:mapEje(datos.eje_y,timestamp),
-      ejez:mapEjez(datos.eje_z,timestamp),
+      eje_x:mapEje(datos.eje_x,timestamp),
+      eje_y:mapEje(datos.eje_y,timestamp),
+      eje_z:mapEjez(datos.eje_z,timestamp),
       metadata:{}
     }
     
