@@ -51,7 +51,7 @@ export const eventoSchema = new mongoose.Schema({
 export const eventos = mongoose.model("eventos", eventoSchema);
 
 const obtenerUltimoTrigger = async () => {
-  let trigger=0;
+  
   const lista = await eventos.find();
 
   if (lista.length === 0) return null;
@@ -89,6 +89,7 @@ const guardarDB = async (evento) => {
 };
 
 export class NodeModel {
+  static trigger=0
   static async getAll() {
     try {
       const token = await verifitoken();
@@ -300,7 +301,7 @@ export class NodeModel {
     return res;
   }
   static async addEvento(data){
-    trigger+=1
+    this.trigger+=1
     const datos=data;
     
     console.log('conectado al endpoint de agregar datos')
