@@ -17,13 +17,13 @@ export async function obtenerToken() {
       },
     );
     if (!respuesta.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error("Error en la solicitud ",respuesta);
     }
     const data = await respuesta.json();
     console.log("Token obtenido: ", data.token);
     return data.token;
   } catch (error) {
-    console.error("error al obtener el token: ", error);
+    console.error("error al obtener el token: ", error);  
     throw error;
   }
   
