@@ -347,8 +347,8 @@ export class NodeModel {
     console.log("datos convetidos: ",resultado)
    // console.log("vector suma : ",vector_suma)
     const res= guardarDB(resultado)
-    const res1=await res.json()
-    console.log("resultado de guardar en bd: ",res1)
+    //const res1=await res.json()
+    console.log("resultado de guardar en bd: ",res)
     return resultado
   }
 }
