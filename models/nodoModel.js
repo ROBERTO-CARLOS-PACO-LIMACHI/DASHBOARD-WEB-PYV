@@ -67,6 +67,7 @@ const guardarDB = async (evento) => {
   const existe = await eventos.findOne({
     trigger: evento.metadata?.event_trigger_id ?? evento.metadata?.trigger,
   });
+  console.log("evento a añadir: ",evento)
   //console.log('el evento existe: ');
   console.log("existe: ", existe);
   if (existe) {
