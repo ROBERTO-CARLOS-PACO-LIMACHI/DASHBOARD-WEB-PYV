@@ -1,5 +1,6 @@
 export async function obtenerToken() {
-  
+  console.log('username: ',process.env.username)
+  console.log('password: ',process.env.password)
   try {
     
     const respuesta = await fetch(
