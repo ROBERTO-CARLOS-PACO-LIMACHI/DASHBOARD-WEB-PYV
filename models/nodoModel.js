@@ -331,6 +331,7 @@ export class NodeModel {
     resultado.metadata={}
     const id=crypto.randomUUID()
     resultado.metadata.nodo_id=datos.metadata.nodo_id
+    resultado.metadata.trigger=""
     resultado.metadata.timestamp=new Date().toISOString()
     resultado.metadata.direccion=datos.metadata.direccion
     console.log("prueba 1 pasada ",resultado)
@@ -341,6 +342,8 @@ export class NodeModel {
     resultado.vector_suma=vector_suma
     console.log("datos convetidos: ",resultado)
     console.log("vector suma : ",vector_suma)
+    const res=await guardarDB({resultado})
+    console.log("resultado de guardar en bd: ",res)
     return resultado
   }
 }
