@@ -335,7 +335,7 @@ export class NodeModel {
     resultado.metadata={}
     const id=crypto.randomUUID()
     resultado.metadata.nodo_id=datos.metadata.nodo_id
-    resultado.metadata.trigger=""
+    resultado.metadata.trigger=this.trigger
     resultado.metadata.timestamp=new Date().toISOString()
     resultado.metadata.direccion=datos.metadata.direccion
     console.log("prueba 1 pasada ",resultado)
