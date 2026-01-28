@@ -39,8 +39,8 @@ import { mongoose } from "mongoose";
 export const eventoSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   nodo_id: { type: String, required: true },
-  trigger: { type: Number, required: true },
-  timestamp: { type: String, required: true },
+  trigger: { type: Number, required: false },
+  timestamp: { type: String, required: trsue },
   direccion: { type: String, required: true },
   eje_x: { type: Array, required: true },
   eje_y: { type: Array, required: true },
@@ -51,6 +51,7 @@ export const eventoSchema = new mongoose.Schema({
 export const eventos = mongoose.model("eventos", eventoSchema);
 
 const obtenerUltimoTrigger = async () => {
+  let trigger=0;
   const lista = await eventos.find();
 
   if (lista.length === 0) return null;
@@ -75,14 +76,14 @@ const guardarDB = async (evento) => {
   const id = crypto.randomUUID();
   const añadirEvento = eventos.create({
     _id: id,
-    trigger: evento.metadata.event_trigger_id,
-    nodo_id: evento.metadata.node_name,
-    timestamp: evento.metadata.trigger_datetime,
-    direccion: evento.metadata.trigger_direction,
-    eje_x: evento.signals.RADIAL,
-    eje_y: evento.signals.TRANSVERSAL,
-    vector_suma: evento.signals["VECTOR SUMA"],
-    eje_z: evento.signals.VERTICAL,
+    trigger: evento.metadata.event_trigger_id || evento.metadata.trigger,
+    nodo_id: evento.metadata.node_name || evento.metadata.nodo_id,
+    timestamp: evento.metadata.trigger_datetime || evento.metadata.timestamp,
+    direccion: evento.metadata.trigger_direction || evento.metadata.direccion,
+    eje_x: evento.signals.RADIAL || evento.eje_x,
+    eje_y: evento.signals.TRANSVERSAL || evento.eje_y,
+    vector_suma: evento.signals["VECTOR SUMA"] || evento.vector_suma,
+    eje_z: evento.signals.VERTICAL || evento.eje_z,
     sample_rate_detected: evento.metadata.sample_rate_detected,
   });
 };
@@ -299,7 +300,9 @@ export class NodeModel {
     return res;
   }
   static async addEvento(data){
+    trigger+=1
     const datos=data;
+    
     console.log('conectado al endpoint de agregar datos')
     console.log(datos)
     //const result=await guardarDB(datos)
