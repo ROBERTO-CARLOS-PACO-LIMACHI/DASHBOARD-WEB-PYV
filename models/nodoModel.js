@@ -40,7 +40,7 @@ export const eventoSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   nodo_id: { type: String, required: true },
   trigger: { type: Number, required: false },
-  timestamp: { type: String, required: trsue },
+  timestamp: { type: String, required: true },
   direccion: { type: String, required: true },
   eje_x: { type: Array, required: true },
   eje_y: { type: Array, required: true },
