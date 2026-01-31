@@ -306,7 +306,7 @@ export class NodeModel {
     const datos=data;
     
     console.log('conectado al endpoint de agregar datos')
-    //console.log(datos)
+    console.log(datos)
     //const result=await guardarDB(datos)
     const timestamp=datos.timestamp
     let eje_x=datos.eje_x
