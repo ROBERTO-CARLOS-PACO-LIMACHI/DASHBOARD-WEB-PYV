@@ -322,11 +322,11 @@ export class NodeModel {
 
     const mapEje=(eje=[],timestamp=[])=>{
       console.log("eje a convertir: ",eje)
-      return eje.map((value,i)=>({value:2*(9.81)*Math.abs(value)/32768,datetime:new Date(timestamp[i])}))
+      return eje.map((value,i)=>({value:2*(9.81)*Math.abs(value)/32768,datetime:new Date(timestamp[i].toISOString().replace('Z',''))}))
     }
     const mapEjez=(eje=[],timestamp=[])=>{
       console.log("eje a convertir: ",eje)
-      return eje.map((value,i)=>({value:Math.abs(2*(9.81)*Math.abs(value)/32768-9.81),datetime:new Date(timestamp[i]).replace('Z','')}))
+      return eje.map((value,i)=>({value:Math.abs(2*(9.81)*Math.abs(value)/32768-9.81),datetime:new Date(timestamp[i].toISOString().replace('Z',''))}))
     }
     const resultado={
       eje_x:mapEje(datos.eje_x,timestamp),
@@ -343,7 +343,7 @@ export class NodeModel {
     //console.log("prueba 1 pasada ",resultado)
     const vector_suma=Object.keys(datos.eje_x).map(k=>({
       value:Math.abs(2*(9.81)*(datos.eje_x[k]+datos.eje_y[k]+datos.eje_z[k])/32768-9.81),
-      datetime:new Date(timestamp[k]).replace('Z','')
+      datetime:new Date(timestamp[k].toISOString().replace('Z',''))
    }))
     resultado.vector_suma=vector_suma
     console.log("datos convetidos: ",resultado)
