@@ -1,6 +1,6 @@
 import express, { json } from "express";
-const WebSocket=require('ws')
-const {createServer}=require('http')
+import  {WebSocket} from 'ws'
+import  {createServer} from 'http'
 const app = express();
 const port = process.env.PORT || 3000;
 const server=createServer(app)
