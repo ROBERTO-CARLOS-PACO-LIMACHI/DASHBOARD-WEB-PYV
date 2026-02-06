@@ -1,6 +1,18 @@
 import express, { json } from "express";
+const WebSocket=require('ws')
+const {createServer}=require('http')
 const app = express();
 const port = process.env.PORT || 3000;
+const server=createServer(app)
+
+const wsssocket=new WebSocket.Server({server, path:'/ws'})
+wsssocket.on('connectiion',(ws)=>{
+  console.log('websocket client connected')
+  ws.on('message',(message)=>{
+    console.log('Received: ',message.toString())
+    ws.send('Hello over websocket!')
+  })
+})
 //app.use("/", require("./routes/index"));
 //import db from "./config/pg.js";
 //import Sensor from "./models/sensorschema.mjs";
@@ -22,6 +34,8 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+// WEBSOCKETS
+const wss =new Websocket.Server({})
 app.use((req, res, next) => {
   const token = req.cookies.access_token;
   // console.log(token);
