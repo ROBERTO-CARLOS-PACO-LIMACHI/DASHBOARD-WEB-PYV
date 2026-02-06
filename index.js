@@ -13,6 +13,7 @@ wss.on('connectiion',(ws)=>{
     ws.send('Hello over websocket!')
   })
 })
+server.listen(10000)
 //app.use("/", require("./routes/index"));
 //import db from "./config/pg.js";
 //import Sensor from "./models/sensorschema.mjs";
@@ -109,7 +110,7 @@ app.use("/dashboard", requireAuth, homerouter);
 /* app.use((req,res)=>{
   res.status(404).send('<h1>404</h1>')
 }) */
-app.listen(port, "0.0.0.0", function (err) {
+server.listen(port, "0.0.0.0", function (err) {
   if (err) {
     console.log("Error: ", err);
   }
