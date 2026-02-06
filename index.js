@@ -1,11 +1,11 @@
 import express, { json } from "express";
-import  WebSocket from 'ws'
+import  {WebSocketServer} from 'ws'
 import   {createServer} from 'http'
 const app = express();
 const port = process.env.PORT || 3000;
 const server=createServer(app)
 
-const wss=new WebSocket.Server({server, path:'/ws'})
+const wss=new WebSocketServer({server, path:'/ws'})
 wss.on('connectiion',(ws)=>{
   console.log('websocket client connected')
   ws.on('message',(message)=>{
