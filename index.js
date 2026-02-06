@@ -35,7 +35,7 @@ app.set("views", "./views");
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // WEBSOCKETS
-const wss =new Websocket.Server({})
+//const wss =new Websocket.Server({})
 app.use((req, res, next) => {
   const token = req.cookies.access_token;
   // console.log(token);
