@@ -110,7 +110,7 @@ app.use("/dashboard", requireAuth, homerouter);
 /* app.use((req,res)=>{
   res.status(404).send('<h1>404</h1>')
 }) */
-server.listen(port, "0.0.0.0", function (err) {
+app.listen(port, "0.0.0.0", function (err) {
   if (err) {
     console.log("Error: ", err);
   }
