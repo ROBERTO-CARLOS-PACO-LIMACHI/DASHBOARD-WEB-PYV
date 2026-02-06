@@ -5,8 +5,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const server=createServer(app)
 
-const wsssocket=new WebSocket.Server({server, path:'/ws'})
-wsssocket.on('connectiion',(ws)=>{
+const wss=new WebSocket.Server({server, path:'/ws'})
+wss.on('connectiion',(ws)=>{
   console.log('websocket client connected')
   ws.on('message',(message)=>{
     console.log('Received: ',message.toString())
