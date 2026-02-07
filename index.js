@@ -26,7 +26,7 @@ wss.on('connection',(ws)=>{
 
     }
     console.log('mensaje recibido: ')
-    ws.send(JSON.stringify(JSON.stringify(message)))
+    ws.send(JSON.stringify(message))
     
   })
 })
