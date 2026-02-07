@@ -4,8 +4,8 @@ function initWebSocket(token) {
     const apagar = document.getElementById("apagar");
     if (ws && ws.readyState === WebSocket.OPEN) return; // ya está conectado
 
-    ws = new WebSocket("wss://realtimepulsar.cosmosblastingtools.com/");
-
+    //ws = new WebSocket("wss://realtimepulsar.cosmosblastingtools.com/");
+    ws=new WebSocket("wss://dashboard-web-pyv-13gs.onrender.com/ws")
     ws.onopen = () => {
         console.log("Conectado al servidor WebSocket");
 

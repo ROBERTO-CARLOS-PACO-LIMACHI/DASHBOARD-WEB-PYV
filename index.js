@@ -6,11 +6,19 @@ const port = process.env.PORT || 3000;
 const server=createServer(app)
 
 const wss=new WebSocketServer({server, path:'/ws'})
+let SWsensor=null
 wss.on('connection',(ws)=>{
   console.log('websocket client connected')
   ws.on('message',(message)=>{
     console.log('Received: ',message.toString())
-    ws.send('Hello over websocket!')
+    if(message.role='sensor'){
+      WSsensor=ws
+      return
+    }
+    if(message.role=='sensor' && WSsensor){
+      WSsensor.send(JSON.stringify(message))
+
+    }
   })
 })
 //server.listen(10000)
