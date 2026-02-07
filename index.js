@@ -18,9 +18,9 @@ wss.on('connection',(ws)=>{
     if(message.target=='sensor' && WSsensor){
       WSsensor.send(JSON.stringify(message))
 
-    }else{
-      ws.send(JSON.stringify(message))
     }
+    console.log('mensaje recibido: ')
+    ws.send(JSON.stringify(JSON.stringify(message)))
     
   })
 })
