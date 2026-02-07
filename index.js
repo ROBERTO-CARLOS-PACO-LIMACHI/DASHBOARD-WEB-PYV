@@ -18,7 +18,10 @@ wss.on('connection',(ws)=>{
     if(message.target=='sensor' && WSsensor){
       WSsensor.send(JSON.stringify(message))
 
+    }else{
+      ws.send(JSON.stringify(message))
     }
+    
   })
 })
 //server.listen(10000)
