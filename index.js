@@ -7,13 +7,18 @@ const server=createServer(app)
 
 const wss=new WebSocketServer({server, path:'/ws'})
 let WSsensor=null
+let WSclient=null
 wss.on('connection',(ws)=>{
   console.log('websocket client connected')
   ws.on('message',(message)=>{
     console.log('Received: ',message.toString())
-    if(message.role='sensor'){
+    if(message.ClientType){
+        WSclient=ws
+    }
+    if(message.role=='sensor'){
       WSsensor=ws
-      return
+      WSclient.send(JSON.stringify(message))
+      return 
     }
     if(message.target=='sensor' && WSsensor){
       WSsensor.send(JSON.stringify(message))
