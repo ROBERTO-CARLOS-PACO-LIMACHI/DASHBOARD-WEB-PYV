@@ -14,6 +14,7 @@ wss.on('connection',(ws)=>{
     console.log('Received: ',message.toString())
     if(message.ClientType){
         WSclient=ws
+        return
     }
     if(message.role=='sensor'){
       WSsensor=ws
