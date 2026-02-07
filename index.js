@@ -15,7 +15,7 @@ wss.on('connection',(ws)=>{
       WSsensor=ws
       return
     }
-    if(message.role=='sensor' && WSsensor){
+    if(message.target=='sensor' && WSsensor){
       WSsensor.send(JSON.stringify(message))
 
     }
