@@ -52,6 +52,7 @@ function initWebSocket(token) {
     }
 
     ws.onmessage = (event) => {
+        console.log("WebSocket message received:");
         console.log("Mensaje recibido:", event.data);
         let parsedData;
         try {
