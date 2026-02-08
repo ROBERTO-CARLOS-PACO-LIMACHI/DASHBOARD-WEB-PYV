@@ -18,7 +18,7 @@ wss.on('connection',(ws)=>{
   ws.on('message',(message)=>{
     console.log('Received: ',message.toString())
     try {
-      const parsedMessge=JSON.parse(message)
+      const parsedMessage=JSON.parse(message)
       console.log('Received messagge',parsedMessage)
       if(parsedMessage.type==='message'){
         const recipiendWS=clients.get(parsedMessage.to)
