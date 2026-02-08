@@ -17,11 +17,38 @@ wss.on('connection',(ws)=>{
     
   ws.on('message',(message)=>{
     console.log('Received: ',message.toString())
-    
+    try {
+      const parsedMessge=JSON.parse(message)
+      console.log('Received messagge',parsedMessage)
+      if(parsedMessage.type==='message'){
+        const recipiendWS=clients.get(parsedMessage.to)
+        if(recipiendWS && recipiendWS.readyState===Websocket.OPEN){
+          recipiendWS.send(JSON.stringify({
+            type:'message',
+            from:tempId,
+            content:parsedMessage.content
+          }))
+        }else{
+          ws.send(JSON.stringify({type:'erro',message:'Recipiend not found'}))
+
+        }
+      }
    
     
-  })
+  }catch (error){
+    console.error('invalid JSON',message)
+    
+  }
+
 })
+ws.on('close',()=>{
+  console.log('client disconected')
+  clients.delete(tempId)
+})
+})
+
+
+
 //server.listen(10000)
 //app.use("/", require("./routes/index"));
 //import db from "./config/pg.js";
