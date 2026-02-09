@@ -22,6 +22,8 @@ wss.on('connection',(ws)=>{
       console.log('Received messagge',parsedMessage)
       if(parsedMessage.type==='message'){
         const recipiendWS=clients.get(parsedMessage.to)
+        console.log('clients: ',clients)
+        console.log('recipient',recipiendWS)
         if(recipiendWS && recipiendWS.readyState===Websocket.OPEN){
           recipiendWS.send(JSON.stringify({
             type:'message',
