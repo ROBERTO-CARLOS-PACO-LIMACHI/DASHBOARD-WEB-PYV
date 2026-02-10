@@ -22,6 +22,7 @@ wss.on('connection',(ws)=>{
       console.log('Received messagge',parsedMessage)
       if(parsedMessage.type==='message'){
         const recipiendWS=clients.get(!parsedMessage.clientId)
+        console.log('recipiendWS: ',recipiendWS)
         //para el sensor
         /* if(parsedMessage.role='sensor' && parsedMessage.status){
           recipiendWS.send(JSON.stringify(parsedMessage))
