@@ -21,13 +21,11 @@ wss.on('connection',(ws)=>{
       const parsedMessage=JSON.parse(message)
       console.log('Received messagge',parsedMessage)
       if(parsedMessage.type==='message'){
-        const recipiendWS=clients.get(!parsedMessage.to)
+        const recipiendWS=clients.get(!parsedMessage.clientId)
         //para el sensor
         /* if(parsedMessage.role='sensor' && parsedMessage.status){
           recipiendWS.send(JSON.stringify(parsedMessage))
         } */
-       
-        
         if(recipiendWS && recipiendWS.readyState===Websocket.OPEN){
           recipiendWS.send(JSON.stringify({
             type:'message',
@@ -36,9 +34,9 @@ wss.on('connection',(ws)=>{
           }))
         }else{
           ws.send(JSON.stringify({type:'erro',message:'Recipiend not found'}))
-
         }
       }
+
    
     
   }catch (error){
