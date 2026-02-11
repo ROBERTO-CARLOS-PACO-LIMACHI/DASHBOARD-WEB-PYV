@@ -101,7 +101,7 @@ function initWebSocket(token) {
 
                 statusCell.innerHTML = `<span class="badge bg-success">${parsedData.status === true ? "Conectado" : parsedData.status}</span>`;
 
-                signalCell.textContent = parsedData.Data.modem.signal_quality;
+                signalCell.textContent = parsedData.signal_quality;
             }
 
             if (sampling) {
