@@ -58,12 +58,12 @@ function initWebSocket(token) {
         try {
             parsedData = JSON.parse(event.data);
         } catch (error) {
-            if (event.type=="message") {
+            if (event.data.type=="message") {
                 /* const cleaned = event.data
                     .substring("WEB_NOTIFICATION:".length)
                     .replace(/\\"/g, '"');
                 parsedData = JSON.parse(cleaned); */
-                parsedData=JSON.parse(event)
+                parsedData=JSON.parse(event.data)
                 
             } else {
                 console.warn("Mensaje desconocido:", event.data);
