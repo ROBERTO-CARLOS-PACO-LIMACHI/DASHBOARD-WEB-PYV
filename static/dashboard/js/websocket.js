@@ -72,7 +72,7 @@ function initWebSocket(token) {
             }
         }
 
-        if (parsedData?.Data) {
+        if (parsedData) {
             const nodeId = parsedData.nodo_id;
             const map = {
                 "7f6cb4b4-387d-4687-a543-ab8e1b328cde": "16",
