@@ -87,7 +87,7 @@
                                                     let activo = data?.results?.[0]?.message_details?.ad7606?.sampling_active;
 
                                                     status16.textContent = activo ? "Activo" : "Desactivado";
-                                                    quality16.textContent=data.results[0].connectivity.modem.signal_quality;
+                                                    quality16.textContent=data.signal_quality;
                                                     timestamp16.textContent=new  Date(data.results[0].connectivity.network.last_ping).toLocaleString();
                                                     //17
                                                     const status17=document.getElementById('statusw17')
