@@ -58,11 +58,13 @@ function initWebSocket(token) {
         try {
             parsedData = JSON.parse(event.data);
         } catch (error) {
-            if (event.data.startsWith("WEB_NOTIFICATION:")) {
-                const cleaned = event.data
+            if (event.type=="message") {
+                /* const cleaned = event.data
                     .substring("WEB_NOTIFICATION:".length)
                     .replace(/\\"/g, '"');
-                parsedData = JSON.parse(cleaned);
+                parsedData = JSON.parse(cleaned); */
+                parsedData=JSON.parse(event)
+                
             } else {
                 console.warn("Mensaje desconocido:", event.data);
                 return;
@@ -70,7 +72,7 @@ function initWebSocket(token) {
         }
 
         if (parsedData?.Data) {
-            const nodeId = parsedData.NodeId;
+            const nodeId = parsedData.nodo_id;
             const map = {
                 "7f6cb4b4-387d-4687-a543-ab8e1b328cde": "16",
                 "524dbea7-4bad-40e3-8d34-0adf92538429": "17",
@@ -78,12 +80,12 @@ function initWebSocket(token) {
             };
 
             const n = map[nodeId];
-            const estado = parsedData.Data.ad7606.sampling_active;
+            const estado = parsedData.status;
             const sampling = document.getElementById(`estado${n}`);
             console.log("nodo: ", n);
             console.log(
                 "estado de nodo: ",
-                parsedData.Data.ad7606.sampling_active,
+                parsedData.status,
             );
 
             const timestampCell = document.getElementById(`timestamp${n}`);
