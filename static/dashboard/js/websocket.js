@@ -92,7 +92,7 @@ function initWebSocket(token) {
             const timestampCell = document.getElementById(`timestamp${n}`);
             const statusCell = document.getElementById(`statusw${n}`);
             const signalCell = document.getElementById(`quality${n}`);
-g
+
             if (timestampCell || statusCell || signalCell) {
                 console.log("timestap");
                 timestampCell.textContent = new Date(
