@@ -92,14 +92,14 @@ function initWebSocket(token) {
             const timestampCell = document.getElementById(`timestamp${n}`);
             const statusCell = document.getElementById(`statusw${n}`);
             const signalCell = document.getElementById(`quality${n}`);
-
+g
             if (timestampCell || statusCell || signalCell) {
                 console.log("timestap");
                 timestampCell.textContent = new Date(
                     parsedData.Timestamp * 1000,
                 ).toLocaleString();
 
-                statusCell.innerHTML = `<span class="badge bg-success">${parsedData.Status === 200 ? "Conectado" : parsedData.Status}</span>`;
+                statusCell.innerHTML = `<span class="badge bg-success">${parsedData.status === true ? "Conectado" : parsedData.status}</span>`;
 
                 signalCell.textContent = parsedData.Data.modem.signal_quality;
             }
