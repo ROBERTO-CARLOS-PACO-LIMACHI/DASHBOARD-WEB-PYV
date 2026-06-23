@@ -2,7 +2,7 @@ import { password,username } from "./pssw.js";
 export async function login() {
   try {
     const response = await fetch(
-      "https://cosmosblastingtools.com/pulsaronline/api/v1/users/login",
+      "",
       {
         method: "POST",
         headers: {
